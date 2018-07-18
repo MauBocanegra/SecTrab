@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">SecTrab</string>
+
+    <string name="login_field_iniciar_titulo">Iniciar Sesión</string>
+    <string name="login_field_correo_hint">Correo Electrónico</string>
+    <string name="login_field_contra_hint">Contraseña</string>
+    <string name="login_field_boton_entrar">Entrar</string>
+    <string name="login_field_boton_contraseña_olvidada">¿Olvidaste tu contraseña?</string>
+    <string name="login_field_texto_cuentanueva">¿No tienes cuenta?</string>
+    <string name="login_field_boton_registro">Regístrate aquí</string>
+    <string name="login_field_boton_saltar">Saltar ></string>
+
+    <string name="register_field_registro_titulo">Registro</string>
+    <string name="register_field_nombre_hint">Nombre completo</string>
+    <string name="register_field_correo_hint">Correo Electrónico</string>
+    <string name="register_field_contra_hint">Contraseña</string>
+    <string name="register_field_boton_entrar">Entrar</string>
+    <string name="register_field_boton_saltar">Saltar ></string>
+
 </resources>
