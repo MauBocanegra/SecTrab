@@ -7,9 +7,9 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethod;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import setra.propulsar.com.sectrab.R;
 
@@ -19,6 +19,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextInputLayout textInputContra;
     private EditText editTextCorreo;
     private EditText editTextContra;
+    boolean doubleBackToExitPressedOnce = false;
 
     // -------------------------------------------- //
     // ---------------- LIFE CYCLE ---------------- //
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         textInputContra = (TextInputLayout) findViewById(R.id.textInputContraseñaLogin);
         editTextCorreo = (EditText) findViewById(R.id.editTextCorreoElectronicoLogin);
         editTextContra = (EditText) findViewById(R.id.editTextContraseñaLogin);
+
     }
 
     // --------------------------------------------- //
@@ -54,6 +56,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 imm.hideSoftInputFromWindow(view.getWindowToken(),0);
             }
         }catch (Exception e){e.printStackTrace();}
+    }
+
+    public void onBackPressed(){
+        if(doubleBackToExitPressedOnce){
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this,"Presiona nuevamente ATRÁS para salir", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        },2000);
+
+        return;
     }
 
     // ----------------------------------------------------------- //
@@ -108,6 +129,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         finish();
                     }
                 },700);
+            }
+            break;
+
+            case R.id.buttonSkip:{
+
             }
         }
 
