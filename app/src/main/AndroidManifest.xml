@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".presentationlayer.activities.LoginActivity"
+            android:name=".presentationlayer.activities.SplashActivity"
             android:theme="@style/AppThemeNoBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,13 +19,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentationlayer.activities.SplashActivity"
+            android:name=".presentationlayer.activities.LoginActivity"
             android:theme="@style/AppThemeNoBar" />
-        <activity android:name=".presentationlayer.activities.RegisterActivity"></activity>
+        <activity
+            android:name=".presentationlayer.activities.RegisterActivity"
+            android:parentActivityName=".presentationlayer.activities.LoginActivity"
+            android:theme="@style/AppThemeNoBar"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".presentationlayer.activities.MenuActivity">
+
+        </activity>
     </application>
 
 </manifest>
