@@ -24,7 +24,7 @@
         <activity
             android:name=".presentationlayer.activities.RegisterActivity"
             android:parentActivityName=".presentationlayer.activities.LoginActivity"
-            android:theme="@style/AppThemeNoBar"></activity>
+            android:theme="@style/AppThemeNoBar"/>
 
         <meta-data
             android:name="preloaded_fonts"
