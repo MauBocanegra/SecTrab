@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import setra.propulsar.com.sectrab.R;
 
-public class MenuActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
