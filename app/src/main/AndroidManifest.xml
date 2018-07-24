@@ -30,7 +30,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".presentationlayer.activities.MenuActivity">
+        <activity android:name=".presentationlayer.activities.MainActivity">
 
         </activity>
     </application>
