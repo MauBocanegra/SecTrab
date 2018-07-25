@@ -26,11 +26,7 @@
             android:parentActivityName=".presentationlayer.activities.LoginActivity"
             android:theme="@style/AppThemeNoBar"/>
 
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-
-        <activity android:name=".presentationlayer.activities.MainActivity">
+        <activity android:name=".presentationlayer.activities.MenuActivity">
 
         </activity>
     </application>

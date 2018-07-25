@@ -151,15 +151,15 @@
     <Button
         android:id="@+id/buttonSaltarRegistro"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:backgroundTint="@color/colorAccent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
         android:gravity="top|bottom|end"
+        android:padding="10dp"
         android:text="@string/register_field_boton_saltar"
         android:textColor="@color/textColorWhite"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.Guideline

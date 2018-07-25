@@ -115,22 +115,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(errorCount==0){
 
                 }
+
+                break;
             }
-            break;
 
             case R.id.buttonRegister:{
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Inicia actividad de Registro
-                        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                },700);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+
+                break;
             }
-            break;
 
             case R.id.buttonSkip:{
 
