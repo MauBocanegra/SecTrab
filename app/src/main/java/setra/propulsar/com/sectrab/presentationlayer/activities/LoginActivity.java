@@ -127,6 +127,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
             case R.id.buttonSkip:{
+                Intent intent = new Intent(LoginActivity.this, MainNavigationActivity.class);
+                startActivity(intent);
 
             }
         }

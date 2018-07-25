@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+
+        <item
+            android:id="@+id/nav_noticias"
+            android:title="@string/nav_title_noticias"/>
+
+        <item
+            android:id="@+id/nav_ofertas_empleo"
+            android:title="@string/nav_title_empleo"/>
+
+        <item
+            android:id="@+id/nav_resuelve"
+            android:title="@string/nav_title_resuelve"/>
+
+        <item
+            android:id="@+id/nav_contacto"
+            android:title="@string/nav_title_contacto"/>
+
+        <item
+            android:id="@+id/nav_settings"
+            android:title="@string/nav_title_settings"
+            android:icon="@drawable/ic_settings"/>
+
+
+    </group>
+
+</menu>

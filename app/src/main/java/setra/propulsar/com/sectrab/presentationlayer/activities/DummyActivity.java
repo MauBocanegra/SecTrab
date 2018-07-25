@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import setra.propulsar.com.sectrab.R;
 
-public class MainNavActivity extends AppCompatActivity {
+public class DummyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_nav);
+        setContentView(R.layout.activity_dummy);
     }
 }

@@ -24,11 +24,13 @@
         <activity
             android:name=".presentationlayer.activities.RegisterActivity"
             android:parentActivityName=".presentationlayer.activities.LoginActivity"
-            android:theme="@style/AppThemeNoBar"/>
-
-        <activity android:name=".presentationlayer.activities.MenuActivity">
-
-        </activity>
+            android:theme="@style/AppThemeNoBar" />
+        <activity
+            android:name=".presentationlayer.activities.DummyActivity"
+            android:theme="@style/AppThemeNoBar" />
+        <activity
+            android:name=".presentationlayer.activities.MainNavigationActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
