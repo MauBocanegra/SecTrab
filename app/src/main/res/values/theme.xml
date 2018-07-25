@@ -5,4 +5,7 @@
         <item name="background">?attr/selectableItemBackground</item>
     </style>
 
+    <style name="MenuNavigation" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">21dp</item>
+    </style>
 </resources>

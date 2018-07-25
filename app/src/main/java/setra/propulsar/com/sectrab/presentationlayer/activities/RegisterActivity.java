@@ -129,7 +129,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
 
             case R.id.buttonSaltarRegistro:{
-                Intent intent = new Intent(RegisterActivity.this,MainNavigationActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, MainNavigationActivity.class);
                 startActivity(intent);
                 break;
             }
