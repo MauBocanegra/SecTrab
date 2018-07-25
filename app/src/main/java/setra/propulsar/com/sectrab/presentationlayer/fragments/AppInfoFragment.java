@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 
 import setra.propulsar.com.sectrab.R;
 
-public class JobVacanciesFragment extends Fragment {
+public class AppInfoFragment extends Fragment {
 
 
-    public JobVacanciesFragment() {
+    public AppInfoFragment() {
         // Required empty public constructor
     }
-    
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
