@@ -25,7 +25,7 @@
     <string name="register_success">Sesión creada correctamente!</string>
     //Errores marcados en actividad register//
     <string name="register_error_nombre_vacio">El campo de nombre completo no puede ir vacío</string>
-    <string name="register_error_correo_vacio">El campo de correo no puede ir vacío</string>
+    <string name="register_error_correo_vacio">Introduce un correo electronico válido</string>
     <string name="register_error_contra_vacia">El campo de contraseña no puede ir vacío</string>
     <string name="register_error_register">Verifica tu Usuario ,contraseña y conexión a internet</string>
 

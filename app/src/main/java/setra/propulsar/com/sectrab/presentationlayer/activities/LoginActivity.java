@@ -6,10 +6,14 @@ import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.regex.Pattern;
 
 import setra.propulsar.com.sectrab.R;
 
@@ -58,6 +62,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }catch (Exception e){e.printStackTrace();}
     }
 
+    private boolean isValidEmail(String email){
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
+    }
+
+    private int validateFields() {
+
+        //instanciamos las cadenas que se obtienen de los campos
+        String stringCorreo = editTextCorreo.getText().toString();
+        String stringContra = editTextContra.getText().toString();
+
+        int errorCount = 0;
+
+        if (stringCorreo.isEmpty() || !isValidEmail(stringCorreo)) {
+            textInputCorreo.setError(getString(R.string.login_error_correo_vacio));
+            errorCount++;
+        } else { textInputCorreo.setError(null);}
+
+        if (stringContra.isEmpty()){
+            textInputContra.setError(getString(R.string.login_error_contra_vacia));
+            errorCount++;
+        } else { textInputContra.setError(null);}
+
+        return errorCount;
+    }
+
     public void onBackPressed(){
         if(doubleBackToExitPressedOnce){
             super.onBackPressed();
@@ -91,46 +121,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.buttonLoginEntrar:{
 
-                //instanciamos las cadenas que se obtienen de los campos
-                String stringCorreo = editTextCorreo.getText().toString();
-                String stringContra = editTextContra.getText().toString();
+                Log.d("DEBLogin","CLICKED");
 
-                //Si el campo de usuario esta vacio muestra el error en el inputLayout
-                if(stringCorreo.isEmpty()){
-                    textInputCorreo.setError(getString(R.string.login_error_correo_vacio));
-                    errorCount++;
-                }else{
-                    textInputCorreo.setError(null);
-                }
+                String stringCorreo = editTextCorreo.getEditableText().toString();
+                String stringContra = editTextContra.getEditableText().toString();
 
-                //Si el campo de contra esta vacio muestra el error en el inputLayout
-                if(stringContra.isEmpty()){
-                    textInputContra.setError(getString(R.string.login_error_contra_vacia));
-                    errorCount++;
-                }else {
-                    textInputContra.setError(null);
-                }
-
-                //Si los campos no estan vacios intenta hacer el login
-                if(errorCount==0){
-
-                }
-
+                if (validateFields()>0){return;}
                 break;
             }
 
             case R.id.buttonRegister:{
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
-
-                break;
-            }
+                break;}
 
             case R.id.buttonSkip:{
                 Intent intent = new Intent(LoginActivity.this, MainNavigationActivity.class);
                 startActivity(intent);
-
-            }
+                break;}
         }
 
     }
