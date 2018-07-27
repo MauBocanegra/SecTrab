@@ -12,12 +12,6 @@ import setra.propulsar.com.sectrab.R;
 
 public class ContactsFragment extends Fragment {
 
-
-    public ContactsFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

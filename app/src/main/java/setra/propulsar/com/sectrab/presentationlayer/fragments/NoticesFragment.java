@@ -11,11 +11,6 @@ import setra.propulsar.com.sectrab.R;
 public class NoticesFragment extends Fragment {
 
 
-    public NoticesFragment() {
-        // Required empty public constructor
-    }
-    
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

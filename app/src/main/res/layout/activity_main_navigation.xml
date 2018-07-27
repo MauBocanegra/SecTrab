@@ -6,17 +6,24 @@
     android:id="@+id/main_drawer_navigation_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context=".presentationlayer.activities.MainNavigationActivity">
+    >
+
+    <include
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_drawer_container"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/menu_navigation_activity"
+        android:fitsSystemWindows="true"
         app:theme="@style/MenuNavigation"
-        app:headerLayout="@layout/item_header_navdrawer">
+        app:headerLayout="@layout/item_header_navdrawer"
+        app:menu="@menu/menu_navigation_activity">
 
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_footer"
@@ -25,37 +32,6 @@
             android:layout_gravity="bottom|end"
             app:menu="@menu/menu_navigation_footer" />
     </android.support.design.widget.NavigationView>
-
-
-
-    <!-- ¿Por que lo tenias 3 veces? -->
-    <!--
-    <android.support.design.widget.NavigationView
-        android:id="@+id/navigation_drawer_container"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start">
-
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:menu="@menu/menu_navigation_activity"
-            app:theme="@style/MenuNavigation"/>
-        
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_footer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            app:menu="@menu/menu_navigation_footer"
-            />
-            
-        </android.support.design.widget.NavigationView>
-
-    -->
-
 
 
 </android.support.v4.widget.DrawerLayout>

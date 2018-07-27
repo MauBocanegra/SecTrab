@@ -9,7 +9,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="INFO DE LA APP"
-        tools:textSize="30sp" />
+        android:gravity="center"
+        android:text="App Info"
+        android:textSize="42dp"
+        android:textStyle="bold" />
 
 </FrameLayout>

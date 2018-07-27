@@ -7,5 +7,12 @@
     tools:context=".presentationlayer.fragments.JobVacanciesFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Oferta de empleo"
+        android:textSize="42dp"
+        android:textStyle="bold" />
 
 </android.support.constraint.ConstraintLayout>

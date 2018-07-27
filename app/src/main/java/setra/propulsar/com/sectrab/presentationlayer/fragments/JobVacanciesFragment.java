@@ -10,12 +10,6 @@ import setra.propulsar.com.sectrab.R;
 
 public class JobVacanciesFragment extends Fragment {
 
-
-    public JobVacanciesFragment() {
-        // Required empty public constructor
-    }
-    
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
