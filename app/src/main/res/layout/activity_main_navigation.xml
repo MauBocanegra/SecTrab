@@ -25,12 +25,6 @@
         app:headerLayout="@layout/item_header_navdrawer"
         app:menu="@menu/menu_navigation_activity">
 
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_footer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            app:menu="@menu/menu_navigation_footer" />
     </android.support.design.widget.NavigationView>
 
 
