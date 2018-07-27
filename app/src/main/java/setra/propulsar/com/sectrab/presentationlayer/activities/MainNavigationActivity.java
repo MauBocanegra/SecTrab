@@ -1,5 +1,6 @@
 package setra.propulsar.com.sectrab.presentationlayer.activities;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -7,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,19 +16,29 @@ import android.view.MenuItem;
 
 import setra.propulsar.com.sectrab.R;
 
-public class MainNavigationActivity extends AppCompatActivity {
+public class MainNavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    NavigationView navDrawerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
 
+        //modifique tu menu checalo por fa
+        //tambien agregue un layout para el header
+
+        //El NavigationView es el que gestiona los escuchas
+        navDrawerView = findViewById(R.id.navigation_drawer_container);
+        navDrawerView.setNavigationItemSelectedListener(this);
+
         //Agregamos las instancias del Drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_navigation_layout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        //Si asignas un listener... reescribe el listener porque supongo lo haces para hacer algo con los comportamientos, en este caso del drawerlayout (no sé para que)
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -62,5 +74,15 @@ public class MainNavigationActivity extends AppCompatActivity {
         } else { super.onBackPressed();}
     }
 
-
+    //Esta es la implementacion del listener
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.nav_noticias: {
+                Log.d("NavigationDrawerDebug","Noticias");
+                break;
+            }
+        }
+        return false;
+    }
 }
