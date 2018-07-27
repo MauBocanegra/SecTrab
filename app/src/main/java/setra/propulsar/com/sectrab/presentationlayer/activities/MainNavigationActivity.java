@@ -2,6 +2,7 @@ package setra.propulsar.com.sectrab.presentationlayer.activities;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,10 @@ import android.view.MenuItem;
 
 
 import setra.propulsar.com.sectrab.R;
+import setra.propulsar.com.sectrab.presentationlayer.fragments.AppInfoFragment;
+import setra.propulsar.com.sectrab.presentationlayer.fragments.ContactsFragment;
+import setra.propulsar.com.sectrab.presentationlayer.fragments.JobVacanciesFragment;
+import setra.propulsar.com.sectrab.presentationlayer.fragments.NoticesFragment;
 
 public class MainNavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -54,15 +59,9 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
-        int id = item.getItemId();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-
         if (mToggle.onOptionsItemSelected(item)){
             return true;
-        } else if (id == R.id.nav_noticias){
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -76,10 +75,34 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
 
     //Esta es la implementacion del listener
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        switch (item.getItemId()){
             case R.id.nav_noticias: {
                 Log.d("NavigationDrawerDebug","Noticias");
+                fragmentManager.beginTransaction().replace(R.id.main_drawer_navigation_layout, new NoticesFragment()).commit();
+                break;
+            }
+            case R.id.nav_ofertas_empleo: {
+                Log.d("NavigationDrawerDebug","Ofertas de empleo");
+                fragmentManager.beginTransaction().replace(R.id.main_drawer_navigation_layout, new JobVacanciesFragment()).commit();
+                break;
+            }
+            case R.id.nav_resuelve: {
+                Log.d("NavigationDrawerDebug","Resuelve");
+                break;
+            }
+            case R.id.nav_contacto: {
+                Log.d("NavigationDrawerDebug","Contacto");
+                fragmentManager.beginTransaction().replace(R.id.main_drawer_navigation_layout, new ContactsFragment()).commit();
+                break;
+            }
+            case R.id.nav_settings: {
+                Log.d("NavigationDrawerDebug","Informacion de la App");
+                fragmentManager.beginTransaction().replace(R.id.main_drawer_navigation_layout, new AppInfoFragment()).commit();
                 break;
             }
         }
