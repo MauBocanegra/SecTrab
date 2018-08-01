@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/colorAccent"
     tools:context=".presentationlayer.fragments.ContactsFragment">
     
     <android.support.v7.widget.Toolbar

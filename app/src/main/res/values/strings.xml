@@ -42,4 +42,13 @@
 
     <string name="frag_title_contacts">Contactos</string>
 
+    <string name="chat_user">Staff</string>
+    <string name="chat_obteniendogaleria">Cargando tus archivos...</string>
+
+    <string name="enviar_ubi">Enviar esta ubicación</string>
+
+
+    <string name="msgs_nohay">¿Tienes alguna solicitud, gestión, denuncia o sugerencia?\n¡Envíanos un mensaje!\nY a la brevedad alguien del staff te contestará personalmente </string>
+
+
 </resources>
