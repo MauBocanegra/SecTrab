@@ -1,7 +1,6 @@
 package setra.propulsar.com.sectrab.domainlayer.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
     }
 
     // ------------------------------------------------------------- //
-    // ---------------- VIEW HOLDER IMPLEMENTATION ---------------- //
+    // ---------------- VIEW HOLDER IMPLEMENTATION ----------------- //
     //-------------------------------------------------------------- //
 
     @Override
@@ -58,7 +57,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
         private ImageButton imageButtonLlamada;
 
 
-        public ViewHolder(View v){
+        public ViewHolder(View v)
+        {
             super (v);
             fullCard = v.findViewById(R.id.itemcontacts_cardView);
             textViewNombre = v.findViewById(R.id.itemcontacts_textView_nombre);

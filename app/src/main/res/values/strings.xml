@@ -41,6 +41,7 @@
     <string name="item_job_vacancies_boton_info">Más información</string>
 
     <string name="frag_title_contacts">Contactos</string>
+    <string name="frag_title_news">Noticias</string>
 
     <string name="chat_user">Staff</string>
     <string name="chat_obteniendogaleria">Cargando tus archivos...</string>
