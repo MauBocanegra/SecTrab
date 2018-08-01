@@ -22,6 +22,18 @@
         <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
     </style>
 
+    <!-- Base application theme. -->
+    <style name="AppThemeNoBarBackAccent" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:background">@color/colorAccent</item>
+
+        <item name="actionBarStyle">@style/Widget.AppTheme.ActionBar</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
+    </style>
+
     <style name="Widget.AppTheme.ActionBar" parent="Widget.AppCompat.ActionBar.Solid">
         <!-- action bar elevation - without android prefix -->
         <item name="elevation">0dp</item>
