@@ -23,6 +23,14 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private ArrayList<News> mDataset;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    public static NewsFragment newInstance(){ return new NewsFragment(); }
+    public NewsFragment(){
+
+    }
+    // -------------------------------------------- //
+    // ---------------- LIFE CYCLE ---------------- //
+    // -------------------------------------------- //
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,8 +49,24 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout.setOnRefreshListener(NewsFragment.this);
-
+        descargarNews();
         return view;
+    }
+
+    // --------------------------------------------- //
+    // ---------------- OWN METHODS ---------------- //
+    //---------------------------------------------- //
+
+    private void descargarNews(){
+        News news1 = new News();
+        News news2 = new News();
+        news1.setTituloNoticia("Instituciones financieras respaldan");
+        news2.setTituloNoticia("Instituciones financieras respaldan");
+        news1.setInfoNoticia("El secretario de SETRAPODE, Ernesto Navaroo Gonzales");
+        news2.setInfoNoticia("El secretario de SETRAPODE, Ernesto Navaroo Gonzales");
+
+        mDataset.add(news1); mDataset.add(news2);
+        mAdapter.notifyDataSetChanged();
     }
 
     // ---------------------------------------------------------- //
