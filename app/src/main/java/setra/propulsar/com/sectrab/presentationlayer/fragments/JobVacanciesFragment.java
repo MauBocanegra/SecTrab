@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,19 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
     private JobsAdapter mAdapter;
     private ArrayList<Jobs> mDataset;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    Toolbar toolbar;
+
+    public static JobVacanciesFragment newInstance(){return new JobVacanciesFragment();}
+    public JobVacanciesFragment(){}
+
+    // -------------------------------------------- //
+    // ---------------- LIFE CYCLE ---------------- //
+    // -------------------------------------------- //
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,10 +46,11 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
         mRecyclerView.setHasFixedSize(true);
 
         mDataset = new ArrayList<Jobs>();
-
         mAdapter = new JobsAdapter(mDataset, getContext());
         mRecyclerView.setAdapter(mAdapter);
+
         mSwipeRefreshLayout=view.findViewById(R.id.swipeRefreshLayoutFragJobs);
+        toolbar=view.findViewById(R.id.toolbar_frag_jobs);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);

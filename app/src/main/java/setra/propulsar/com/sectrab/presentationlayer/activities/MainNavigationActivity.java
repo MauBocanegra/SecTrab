@@ -77,7 +77,6 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
             case R.id.nav_ofertas_empleo: {
                 Log.d("NavigationDrawerDebug","Ofertas de empleo");
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new JobVacanciesFragment()).commit();
-                jobVacanciesFrag = JobVacanciesFragment.newInstance(); 
                 break;
             }
             case R.id.nav_resuelve: {

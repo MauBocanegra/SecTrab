@@ -17,6 +17,7 @@
 
 
     <string name="register_field_registro_titulo">Registro</string>
+    <string name="register_toolbar_titulo">Registro</string>
     <string name="register_field_nombre_hint">Nombre completo</string>
     <string name="register_field_correo_hint">Correo Electrónico</string>
     <string name="register_field_contra_hint">Contraseña</string>

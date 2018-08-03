@@ -11,7 +11,7 @@
     tools:context=".presentationlayer.fragments.ChatFragment">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarChat"
+        android:id="@+id/toolbar_frag_chat"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="0dp"

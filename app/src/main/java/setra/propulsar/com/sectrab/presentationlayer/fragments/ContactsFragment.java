@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,22 @@ public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnR
     private ContactsAdapter mAdapter;
     private ArrayList<Contacts> mDataset;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    Toolbar toolbar;
+
+    public static ContactsFragment newInstance(){return new ContactsFragment();}
+    public ContactsFragment(){}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    // -------------------------------------------- //
+    // ---------------- LIFE CYCLE ---------------- //
+    // -------------------------------------------- //
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
 
@@ -33,10 +46,11 @@ public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnR
         mRecyclerView.setHasFixedSize(true);
 
         mDataset = new ArrayList<Contacts>();
-
         mAdapter = new ContactsAdapter(mDataset, getContext());
         mRecyclerView.setAdapter(mAdapter);
+
         mSwipeRefreshLayout=view.findViewById(R.id.swipeRefreshLayoutFragContacts);
+        toolbar=view.findViewById(R.id.toolbar_frag_contacts);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
