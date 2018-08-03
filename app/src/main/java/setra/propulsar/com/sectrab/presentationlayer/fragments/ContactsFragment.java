@@ -16,7 +16,7 @@ import setra.propulsar.com.sectrab.R;
 import setra.propulsar.com.sectrab.domainlayer.adapters.ContactsAdapter;
 import setra.propulsar.com.sectrab.domainlayer.models.Contacts;
 
-public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener{
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
@@ -65,6 +65,11 @@ public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
+
+    }
+
+    @Override
+    public void onClick(View view) {
 
     }
 }
