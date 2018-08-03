@@ -22,14 +22,14 @@ public class Contacts
     }
 
     public String getUbicacionEmpresa() {
+
         return ubicacionEmpresa;
     }
 
-    public void setUbicacionEmpresa(String ubicacionEmpresa) {
-        this.ubicacionEmpresa = ubicacionEmpresa;
-    }
+    public void setUbicacionEmpresa(String ubicacionEmpresa) { this.ubicacionEmpresa = ubicacionEmpresa; }
 
     public int getTelefonoEmpresa() {
+
         return telefonoEmpresa;
     }
 
@@ -38,6 +38,7 @@ public class Contacts
     }
 
     public ImageButton getImageButtonLlamada() {
+
         return imageButtonLlamada;
     }
 

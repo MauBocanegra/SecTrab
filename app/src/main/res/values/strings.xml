@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SecTrab</string>
+    <string name="app_name">SETRAPRODE</string>
 
     <string name="login_field_iniciar_titulo">Iniciar Sesión</string>
     <string name="login_field_correo_hint">Correo Electrónico</string>
@@ -42,6 +42,7 @@
 
     <string name="frag_title_contacts">Contactos</string>
     <string name="frag_title_news">Noticias</string>
+    <string name="frag_title_jobs">Ofertas de empleo</string>
 
     <string name="chat_user">Staff</string>
     <string name="chat_obteniendogaleria">Cargando tus archivos...</string>

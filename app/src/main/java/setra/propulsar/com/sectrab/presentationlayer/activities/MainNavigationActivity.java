@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import setra.propulsar.com.sectrab.R;
 import setra.propulsar.com.sectrab.presentationlayer.fragments.AppInfoFragment;
+import setra.propulsar.com.sectrab.presentationlayer.fragments.ChatFragment;
 import setra.propulsar.com.sectrab.presentationlayer.fragments.ContactsFragment;
 import setra.propulsar.com.sectrab.presentationlayer.fragments.JobVacanciesFragment;
 import setra.propulsar.com.sectrab.presentationlayer.fragments.NewsFragment;
@@ -74,6 +75,7 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
             }
             case R.id.nav_resuelve: {
                 Log.d("NavigationDrawerDebug","Resuelve");
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new ChatFragment()).commit();
                 break;
             }
             case R.id.nav_contacto: {
