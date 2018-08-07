@@ -30,7 +30,8 @@
             android:theme="@style/AppThemeNoBar" />
         <activity
             android:name=".presentationlayer.activities.MainNavigationActivity"
-            android:theme="@style/AppThemeNoBar"/>
+            android:theme="@style/AppThemeNoBar" />
+        <activity android:name=".presentationlayer.activities.NewsDetalleActivity"></activity>
     </application>
 
 </manifest>
