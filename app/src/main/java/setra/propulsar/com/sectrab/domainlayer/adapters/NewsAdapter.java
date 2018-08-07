@@ -1,14 +1,15 @@
 package setra.propulsar.com.sectrab.domainlayer.adapters;
 
 import android.content.Context;
-
-
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -40,12 +41,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         holder.textViewTitulo.setText(mDataset.get(position).getTituloNoticia());
         holder.textViewDescripcion.setText(mDataset.get(position).getInfoNoticia());
+        Picasso.with(mContext).load(Uri.parse((mDataset.get(position)).getLinkImagenNoticia())).into(holder.imageViewPortada);
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mDataset.size();
     }
 
     // -------------------------------------------------- //
@@ -64,7 +66,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             super (v);
             fullCard = v.findViewById(R.id.itemnews_cardView);
             textViewTitulo = v.findViewById(R.id.itemnews_textView_titulo);
-            textViewDescripcion = v.findViewById(R.id.itemnews_textView_contenido);
+            textViewDescripcion = v.findViewById(R.id.itemnews_textView_infonoticia);
             imageViewPortada = v.findViewById(R.id.itemnews_imageView_portada);
 
         }

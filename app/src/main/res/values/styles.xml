@@ -50,4 +50,5 @@
     <style name="WhiteAccent" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorAccent">#FFF</item>
     </style>
+
 </resources>

@@ -4,40 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/colorAccent"
     tools:context=".presentationlayer.fragments.ContactsFragment">
-    
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_frag_contacts"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/textColorAccent"
-        style="@style/AppThemeNoBar">
 
-        <TextView
-            android:gravity="center"
-            android:text="@string/frag_title_contacts"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayoutFragContacts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceLarge"/>
+            android:layout_marginTop="?attr/actionBarSize">
 
-    </android.support.v7.widget.Toolbar>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fragmentcontacts_recyclerview"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/item_contacts" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayoutFragContacts"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize">
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/fragmentcontacts_recyclerview"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/item_contacts" />
+    </android.support.constraint.ConstraintLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 
 </android.support.design.widget.CoordinatorLayout>

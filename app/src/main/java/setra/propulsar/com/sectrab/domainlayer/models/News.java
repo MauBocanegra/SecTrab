@@ -1,12 +1,10 @@
 package setra.propulsar.com.sectrab.domainlayer.models;
 
-import android.media.Image;
-
 public class News {
 
     private String tituloNoticia;
     private String infoNoticia;
-    private Image imagenNoticia;
+    private String linkImagenNoticia;
 
     public News(){
 
@@ -24,9 +22,9 @@ public class News {
         this.infoNoticia = infoNoticia;
     }
 
-    public Image getImagenNoticia() { return imagenNoticia; }
+    public String getLinkImagenNoticia() { return linkImagenNoticia; }
 
-    public void setImagenNoticia(Image imagenNoticia) {
-        this.imagenNoticia = imagenNoticia;
+    public void setLinkImagenNoticia(String linkImagenNoticia) {
+        this.linkImagenNoticia = linkImagenNoticia;
     }
 }

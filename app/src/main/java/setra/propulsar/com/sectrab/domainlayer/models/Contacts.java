@@ -13,6 +13,10 @@ public class Contacts
 
     }
 
+    public Contacts(String nombreEmpresa, String ubicacion, int telefono){
+        this.nombreEmpresa=nombreEmpresa; this.ubicacionEmpresa=ubicacion; this.telefonoEmpresa=telefono;
+    }
+
     public String getNombreEmpresa() {
         return nombreEmpresa;
     }

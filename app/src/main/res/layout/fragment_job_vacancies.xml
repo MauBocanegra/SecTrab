@@ -4,24 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/colorAccent"
     tools:context=".presentationlayer.fragments.JobVacanciesFragment">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_frag_jobs"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/textColorAccent">
-
-        <TextView
-            android:gravity="center"
-            android:text="@string/frag_title_jobs"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceLarge"/>
-
-    </android.support.v7.widget.Toolbar>
+        android:layout_height="match_parent">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayoutFragJobs"
@@ -37,6 +24,8 @@
             tools:listitem="@layout/item_job_vacancies" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    </android.support.constraint.ConstraintLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

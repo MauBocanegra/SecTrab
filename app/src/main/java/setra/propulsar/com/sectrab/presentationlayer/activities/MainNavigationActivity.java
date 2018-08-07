@@ -27,6 +27,7 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
     NewsFragment newsFrag;
     ChatFragment chatFrag;
     AppInfoFragment appInfoFrag;
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,15 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_drawer_container);
         navigationView.setNavigationItemSelectedListener(this);
 
+        fragmentManager = getSupportFragmentManager();
+
+        contactsFrag = new ContactsFragment();
+        jobVacanciesFrag = new JobVacanciesFragment();
+        newsFrag = new NewsFragment();
+        chatFrag = new ChatFragment();
+
+        //Fragment inicial
+        fragmentManager.beginTransaction().replace(R.id.contenedorrr, jobVacanciesFrag).commit();
     }
 
     @Override
@@ -66,32 +76,31 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-        FragmentManager fragmentManager = getSupportFragmentManager();
 
         switch (item.getItemId()){
             case R.id.nav_noticias: {
                 Log.d("NavigationDrawerDebug","Noticias");
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new NewsFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.contenedorrr, newsFrag).commit();
                 break;
             }
             case R.id.nav_ofertas_empleo: {
                 Log.d("NavigationDrawerDebug","Ofertas de empleo");
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new JobVacanciesFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.contenedorrr, jobVacanciesFrag).commit();
                 break;
             }
             case R.id.nav_resuelve: {
                 Log.d("NavigationDrawerDebug","Resuelve");
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new ChatFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.contenedorrr, chatFrag).commit();
                 break;
             }
             case R.id.nav_contacto: {
                 Log.d("NavigationDrawerDebug","Contacto");
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new ContactsFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.contenedorrr, contactsFrag).commit();
                 break;
             }
             case R.id.nav_settings: {
                 Log.d("NavigationDrawerDebug","Informacion de la App");
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new AppInfoFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.contenedor, appInfoFrag).commit();
                 break;
             }
         }

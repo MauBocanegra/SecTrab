@@ -2,7 +2,7 @@ package setra.propulsar.com.sectrab.domainlayer.models;
 
 public class Jobs
 {
-    private String imageuUrl;
+    private String linkImagenEmpresa;
     private String nombreEmpresa;
     private String infoEmpresa;
     private String puestoEmpresa;
@@ -13,11 +13,11 @@ public class Jobs
 
     }
 
-    public String getImageuUrl() {
-        return imageuUrl;
+    public String getLinkImagenEmpresa() {
+        return linkImagenEmpresa;
     }
 
-    public void setImageuUrl(String imageuUrl) { this.imageuUrl = imageuUrl; }
+    public void setLinkImagenEmpresa(String linkImagenEmpresa) { this.linkImagenEmpresa = linkImagenEmpresa; }
 
     public String getNombreEmpresa() {
         return nombreEmpresa;

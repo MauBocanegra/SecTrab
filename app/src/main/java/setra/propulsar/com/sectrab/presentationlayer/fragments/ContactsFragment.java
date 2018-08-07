@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +17,14 @@ import setra.propulsar.com.sectrab.R;
 import setra.propulsar.com.sectrab.domainlayer.adapters.ContactsAdapter;
 import setra.propulsar.com.sectrab.domainlayer.models.Contacts;
 
-public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener{
+public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private ContactsAdapter mAdapter;
     private ArrayList<Contacts> mDataset;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    Toolbar toolbar;
+
 
     public static ContactsFragment newInstance(){return new ContactsFragment();}
     public ContactsFragment(){}
@@ -46,11 +47,13 @@ public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnR
         mRecyclerView.setHasFixedSize(true);
 
         mDataset = new ArrayList<Contacts>();
+
+        mDataset.add(new Contacts("Empresa 1","Ubicacion 1",234567));
+
         mAdapter = new ContactsAdapter(mDataset, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         mSwipeRefreshLayout=view.findViewById(R.id.swipeRefreshLayoutFragContacts);
-        toolbar=view.findViewById(R.id.toolbar_frag_contacts);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -65,11 +68,8 @@ public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
+        Log.d("TAG","onRefresh");
 
     }
 
-    @Override
-    public void onClick(View view) {
-
-    }
 }

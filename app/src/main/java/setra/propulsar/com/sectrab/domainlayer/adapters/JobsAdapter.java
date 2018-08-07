@@ -1,6 +1,7 @@
 package setra.propulsar.com.sectrab.domainlayer.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -28,12 +31,10 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
     // ---------------- VIEW HOLDER IMPLEMENTATION ----------------- //
     //-------------------------------------------------------------- //
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_job_vacancies, parent, false);
-        return new ViewHolder(v);
-
+        return new JobsAdapter.ViewHolder(v);
     }
 
     @Override
@@ -44,6 +45,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         holder.textViewPuesto.setText(mDataset.get(position).getPuestoEmpresa());
         holder.textViewDescripcion.setText(mDataset.get(position).getDescripcionEmpleo());
         holder.textViewUbicacion.setText(mDataset.get(position).getUbicacionEmpleo());
+        Picasso.with(mContext).load(Uri.parse((mDataset.get(position)).getLinkImagenEmpresa())).into(holder.imageViewImagen);
     }
 
     @Override
@@ -68,7 +70,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         {
             super (v);
             fullcard = v.findViewById(R.id.itemjob_cardView_fullview);
-            imageViewImagen = v.findViewById(R.id.itemnews_imageView_portada);
+            imageViewImagen = v.findViewById(R.id.itemjob_imageView_imagenempresa);
             textViewNombre = v.findViewById(R.id.itemjob_textView_nombreempresa);
             textViewInformacion = v.findViewById(R.id.itemjob_textView_infoempresa);
             textViewPuesto = v.findViewById(R.id.itemjob_textView_puesto);
