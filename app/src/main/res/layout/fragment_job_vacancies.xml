@@ -8,22 +8,23 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayoutFragJobs"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize">
+        android:background="@color/colorAccent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/fragmentjobs_recyclerview"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/item_job_vacancies" />
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayoutFragJobs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fragmentjobs_recyclerview"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/item_job_vacancies" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </android.support.constraint.ConstraintLayout>
 
