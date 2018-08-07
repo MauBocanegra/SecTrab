@@ -31,7 +31,8 @@
         <activity
             android:name=".presentationlayer.activities.MainNavigationActivity"
             android:theme="@style/AppThemeNoBar" />
-        <activity android:name=".presentationlayer.activities.NewsDetalleActivity"></activity>
+        <activity android:name=".presentationlayer.activities.NewsDetalleActivity" />
+        <activity android:name=".presentationlayer.activities.JobsDetalleActivity"></activity>
     </application>
 
 </manifest>
