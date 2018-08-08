@@ -39,6 +39,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
         holder.textViewNombre.setText(mDataset.get(position).getNombreEmpresa());
         holder.textViewUbicacion.setText(mDataset.get(position).getUbicacionEmpresa());
         holder.textViewTelefono.setText(mDataset.get(position).getTelefonoEmpresa());
+
     }
 
     @Override

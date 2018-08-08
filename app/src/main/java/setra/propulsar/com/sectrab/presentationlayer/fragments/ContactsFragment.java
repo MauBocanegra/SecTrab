@@ -48,8 +48,6 @@ public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         mDataset = new ArrayList<Contacts>();
 
-        mDataset.add(new Contacts("Empresa 1","Ubicacion 1",234567));
-
         mAdapter = new ContactsAdapter(mDataset, getContext());
         mRecyclerView.setAdapter(mAdapter);
 

@@ -10,6 +10,7 @@
     <string name="login_field_boton_registro">Regístrate aquí</string>
     <string name="login_field_boton_saltar">Saltar ></string>
     <string name="login_success">Sesión iniciada correctamente!</string>
+    <string name="login_contramenu">Recuperar contraseña</string>
     //Errores marcados en actividad login//
     <string name="login_error_correo_vacio">El campo de correo no puede ir vacío</string>
     <string name="login_error_contra_vacia">El campo de contraseña no puede ir vacío</string>
@@ -24,6 +25,7 @@
     <string name="register_field_boton_entrar">Entrar</string>
     <string name="register_field_boton_saltar">Saltar ></string>
     <string name="register_success">Sesión creada correctamente!</string>
+    <string name="iniOKRegistro">¡Cuenta creada exitosamente! Inicio de sesión automático</string>
     //Errores marcados en actividad register//
     <string name="register_error_nombre_vacio">El campo de nombre completo no puede ir vacío</string>
     <string name="register_error_correo_vacio">Introduce un correo electronico válido</string>

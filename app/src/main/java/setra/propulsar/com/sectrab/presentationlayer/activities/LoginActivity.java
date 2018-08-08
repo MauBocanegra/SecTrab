@@ -6,18 +6,25 @@ import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import setra.propulsar.com.sectrab.R;
+import setra.propulsar.com.sectrab.domainlayer.ws.WS;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, WS.OnWSRequested {
 
     private TextInputLayout textInputCorreo;
     private TextInputLayout textInputContra;
@@ -88,6 +95,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return errorCount;
     }
 
+    private int validateContra(){
+        String correo = editTextCorreo.getEditableText().toString();
+
+        if(correo.isEmpty() || !isValidEmail(correo)){
+            textInputCorreo.setError("Introduce el correo del cual deseas recuperar tu contraseña");
+            return 1;
+        }else{ textInputCorreo.setError(null); return 0;}
+    }
+
     public void onBackPressed(){
         if(doubleBackToExitPressedOnce){
             super.onBackPressed();
@@ -120,16 +136,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId()){
 
             case R.id.buttonLoginEntrar:{
-
                 Log.d("DEBLogin","CLICKED");
 
                 String stringCorreo = editTextCorreo.getEditableText().toString();
                 String stringContra = editTextContra.getEditableText().toString();
 
                 if (validateFields()>0){return;}
+                break; }
+            case R.id.buttonContraOlvidada:{
+                PopupMenu popup = new PopupMenu(LoginActivity.this, view);
+                popup.getMenuInflater().inflate(R.menu.menu_contra, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if(validateContra()==0){Map<String, Object> params = new LinkedHashMap<>();
+                            params.put("Email",editTextCorreo.getEditableText().toString());
+                            WS.recoverPassword(params,LoginActivity.this);
+                        }
+                        return true;
+                    }
+                });
+
+                popup.show();
                 break;
             }
-
             case R.id.buttonRegister:{
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
@@ -140,6 +170,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;}
         }
+
+    }
+
+    @Override
+    public void wsAnswered(JSONObject json) {
 
     }
 }

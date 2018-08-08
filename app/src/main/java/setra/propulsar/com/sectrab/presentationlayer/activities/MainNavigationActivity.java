@@ -51,9 +51,10 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
         jobVacanciesFrag = new JobVacanciesFragment();
         newsFrag = new NewsFragment();
         chatFrag = new ChatFragment();
+        appInfoFrag = new AppInfoFragment();
 
         //Fragment inicial
-        fragmentManager.beginTransaction().replace(R.id.contenedorrr, jobVacanciesFrag).commit();
+        fragmentManager.beginTransaction().replace(R.id.contenedorrr, newsFrag).commit();
     }
 
     @Override

@@ -8,4 +8,6 @@
     <color name="textColorSecondary">#a5a7aa</color>
     <color name="textColorWhite">#ffffff</color>
     <color name="textColorAccent">#21374d</color>
+
+    <color name="buttonRed">#D9142c</color>
 </resources>

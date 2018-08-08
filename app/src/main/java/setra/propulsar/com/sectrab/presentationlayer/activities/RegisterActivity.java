@@ -11,12 +11,21 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import org.json.JSONObject;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import setra.propulsar.com.sectrab.R;
+import setra.propulsar.com.sectrab.domainlayer.ws.WS;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, WS.OnWSRequested {
 
     private TextInputLayout textInputNombre;
     private TextInputLayout textInputCorreo;
@@ -24,6 +33,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextNombre;
     private EditText editTextCorreo;
     private EditText editTextContra;
+
+    Tracker mTracker;
 
 
     // -------------------------------------------- //
@@ -34,6 +45,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        mTracker.setScreenName("Registro");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         //Asignacion del toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarRegister);
@@ -70,12 +84,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private boolean isValidEmail(String email){
+    private boolean isValidEmail(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
     }
 
-    private int validateFields(){
+    private int validateFields() {
 
         //instanciamos las cadenas que se obtienen de los campos
         String stringNombre = editTextNombre.getText().toString();
@@ -84,23 +98,29 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         int errorCount = 0;
 
-        if(stringNombre.isEmpty()){
+        if (stringNombre.isEmpty()) {
             textInputNombre.setError(getString(R.string.register_error_nombre_vacio));
             errorCount++;
-        }else{textInputNombre.setError(null);}
+        } else {
+            textInputNombre.setError(null);
+        }
 
-        if(stringCorreo.isEmpty() || !isValidEmail(stringCorreo)){
+        if (stringCorreo.isEmpty() || !isValidEmail(stringCorreo)) {
             textInputCorreo.setError(getString(R.string.register_error_correo_vacio));
             errorCount++;
-        }else {textInputCorreo.setError(null);}
+        } else {
+            textInputCorreo.setError(null);
+        }
 
-        if(stringContra.isEmpty()){
+        if (stringContra.isEmpty()) {
             textInputContra.setError(getString(R.string.register_error_contra_vacia));
             errorCount++;
-        }else if(stringContra.length()<6){
+        } else if (stringContra.length() < 6) {
             textInputContra.setError("Tu contraseña debe tener al menos 6 caracteres");
             errorCount++;
-        }else {textInputContra.setError(null);}
+        } else {
+            textInputContra.setError(null);
+        }
 
         return errorCount;
     }
@@ -117,22 +137,69 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.buttonEntrarRegistro: {
 
-                Log.d("DEBRegister","CLICKED");
+                Log.d("DEBRegister", "CLICKED");
 
                 String stringNombre = editTextNombre.getEditableText().toString();
                 String stringCorreo = editTextCorreo.getEditableText().toString();
                 String stringContra = editTextContra.getEditableText().toString();
 
-                if(validateFields()>0){return;}
+                if (validateFields() > 0) {
+                    return;
+                }
+
+                Map<String, Object> params = new LinkedHashMap<>();
+                params.put("Nombre", stringNombre);
+                params.put("Email", stringCorreo);
+                params.put("Password", stringContra);
+                WS.getInstance(RegisterActivity.this).registerMail(params, this);
 
                 break;
             }
 
-            case R.id.buttonSaltarRegistro:{
+            case R.id.buttonSaltarRegistro: {
                 Intent intent = new Intent(RegisterActivity.this, MainNavigationActivity.class);
                 startActivity(intent);
                 break;
             }
         }
+    }
+
+    @Override
+    public void wsAnswered(JSONObject json) {
+        Log.d("RegisterActivity", json.toString());
+        int ws = 0;
+        int status = -1;
+        try {
+            status = json.getInt("status");
+        } catch (Exception e) { e.printStackTrace(); }
+
+        if (status != 0) {/*ERRRRRRROOOOOOOORRRRRRR*/}
+
+        try {
+            ws = json.getInt("ws");
+            switch (ws) {
+                case WS.WS_registerMail: {
+                    JSONObject data = json.getJSONObject("data");
+
+                    mTracker.send(
+                            new HitBuilders.EventBuilder()
+                                    .setCategory("Usuarios").setAction("RegistroUsuario").setLabel("userID").setValue(data.getInt("UserId"))
+                                    .build()
+                    );
+
+                    if(!data.getBoolean("Success")) {
+                        WS.showMessage(data.getString("ErrorMessage"), RegisterActivity.this);
+                        return;
+                    }
+
+                    Toast.makeText(this, getString(R.string.iniOKRegistro), Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getApplicationContext(), MainNavigationActivity.class);
+                    startActivity(intent);
+                }
+
+
+            }
+        }catch(Exception e){ e.printStackTrace(); }
     }
 }

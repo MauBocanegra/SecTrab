@@ -6,14 +6,14 @@ public class Contacts
 {
     private String nombreEmpresa;
     private String ubicacionEmpresa;
-    private int telefonoEmpresa;
+    private String telefonoEmpresa;
     private ImageButton imageButtonLlamada;
 
     public Contacts(){
 
     }
 
-    public Contacts(String nombreEmpresa, String ubicacion, int telefono){
+    public Contacts(String nombreEmpresa, String ubicacion, String telefono){
         this.nombreEmpresa=nombreEmpresa; this.ubicacionEmpresa=ubicacion; this.telefonoEmpresa=telefono;
     }
 
@@ -32,12 +32,11 @@ public class Contacts
 
     public void setUbicacionEmpresa(String ubicacionEmpresa) { this.ubicacionEmpresa = ubicacionEmpresa; }
 
-    public int getTelefonoEmpresa() {
-
+    public String getTelefonoEmpresa() {
         return telefonoEmpresa;
     }
 
-    public void setTelefonoEmpresa(int telefonoEmpresa) {
+    public void setTelefonoEmpresa(String telefonoEmpresa) {
         this.telefonoEmpresa = telefonoEmpresa;
     }
 
