@@ -98,6 +98,10 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
         mDataset.add(jobs1); mDataset.add(jobs2); mDataset.add(jobs3); mDataset.add(jobs4);
     }
 
+    // ---------------------------------------------------------- //
+    // -------------- SWIPE REFRESH IMPLEMENTATION -------------- //
+    // ---------------------------------------------------------- //
+
     @Override
     public void onRefresh() {
         Log.d("TAG","onRefresh");

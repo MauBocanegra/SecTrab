@@ -8,7 +8,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayoutFragContacts"
@@ -26,8 +27,5 @@
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </android.support.constraint.ConstraintLayout>
-
-
-
 
 </android.support.design.widget.CoordinatorLayout>
