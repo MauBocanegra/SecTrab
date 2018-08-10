@@ -48,8 +48,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        //mTracker.setScreenName("Registro");
-        //mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         //Asignacion del toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarRegister);
@@ -199,8 +197,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Intent intent = new Intent(getApplicationContext(), MainNavigationActivity.class);
                     startActivity(intent);
                 }
-
-
             }
         }catch(Exception e){ e.printStackTrace(); }
         finally {

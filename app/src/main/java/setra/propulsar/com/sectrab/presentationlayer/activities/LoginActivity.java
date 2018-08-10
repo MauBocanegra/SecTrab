@@ -35,7 +35,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText editTextCorreo;
     private EditText editTextContra;
     View buttonLogin;
+    View progressEntrar;
     View buttonContra;
+    View progressContra;
     boolean doubleBackToExitPressedOnce = false;
 
     // -------------------------------------------- //
@@ -47,6 +49,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        WS.getInstance(getApplicationContext());
+
         //Implementamos el listener de los toques para los botones
         buttonLogin = findViewById(R.id.buttonLoginEntrar);
         buttonLogin.setOnClickListener(this);
@@ -54,6 +58,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonContra.setOnClickListener(this);
         findViewById(R.id.buttonRegister).setOnClickListener(this);
         findViewById(R.id.buttonSkip).setOnClickListener(this);
+        progressEntrar = findViewById(R.id.progressBarEntrar);
+        progressContra = findViewById(R.id.progressBarContra);
 
         //Instanciamos las variables que se usaran
         textInputCorreo = (TextInputLayout) findViewById(R.id.textInputCorreoLogin);
@@ -148,16 +154,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         hideKeyboard();
 
-        int errorCount = 0;
-
         switch (view.getId()) {
 
             case R.id.buttonLoginEntrar: {
                 Log.d("DEBLogin", "CLICKED");
 
                 View someview = this.getCurrentFocus();
-                if (someview != null) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if(someview!=null){
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(someview.getWindowToken(), 0);
                 }
 
@@ -166,12 +170,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 if (validateFields() > 0) { return; }
 
+                progressEntrar.setVisibility(View.VISIBLE);
                 buttonLogin.setEnabled(false);
 
                 Map<String, Object> params = new LinkedHashMap<>();
-                params.put("UserName", editTextCorreo);
-                params.put("Password", editTextContra);
-                WS.userSignIn(params, this);
+                params.put("UserName", stringCorreo);
+                params.put("Password", stringContra);
+                WS.getInstance(LoginActivity.this).userSignIn(params, this);
 
                 break;
             }
@@ -183,6 +188,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         if (validateContra() == 0) {
+                            progressContra.setVisibility(View.VISIBLE);
                             Map<String, Object> params = new LinkedHashMap<>();
                             params.put("Email", editTextCorreo.getEditableText().toString());
                             WS.recoverPassword(params, LoginActivity.this);
@@ -209,18 +215,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    // ------------------------------------------- //
+    // -------------- WEB SERVICES --------------- //
+    // ------------------------------------------- //
+
     @Override
     public void wsAnswered(JSONObject json) {
 
-        Log.d("WSDEB", json.toString());
+        Log.d("LoginActivity", json.toString());
         int ws = 0;
         int status = -1;
-        try {
-            status = json.getInt("status");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        try { status = json.getInt("status"); } catch (Exception e) { e.printStackTrace(); }
         if (status != 0) {/*ERRRRRRROOOOOOOORRRRRRR*/}
+
 
         try {
             ws = json.getInt("ws");
@@ -230,9 +237,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     JSONObject data = json.getJSONObject("data");
                     if (data.getInt("Updated") == 1) {
                         WS.showSucces("Se envió a tu correo la nueva contraseña", buttonLogin);
+                        progressContra.setVisibility(View.GONE);
                     } else {
                         WS.showSucces("El correo ingresado no existe en la base de datos", buttonLogin);
-
+                        progressContra.setVisibility(View.GONE);
                     }
                     break;
                 }
@@ -271,6 +279,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }catch(Exception e){e.printStackTrace();}
         finally {
+            progressEntrar.setVisibility(View.GONE);
             buttonLogin.setEnabled(true);
         }
     }
