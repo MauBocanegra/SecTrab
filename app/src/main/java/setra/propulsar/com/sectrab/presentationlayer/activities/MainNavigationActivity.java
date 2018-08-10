@@ -101,7 +101,7 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
             }
             case R.id.nav_settings: {
                 Log.d("NavigationDrawerDebug","Informacion de la App");
-                fragmentManager.beginTransaction().replace(R.id.contenedor, appInfoFrag).commit();
+                fragmentManager.beginTransaction().replace(R.id.contenedorrr, appInfoFrag).commit();
                 break;
             }
         }

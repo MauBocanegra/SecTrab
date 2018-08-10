@@ -2,6 +2,7 @@ package setra.propulsar.com.sectrab.presentationlayer.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,8 +34,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextNombre;
     private EditText editTextCorreo;
     private EditText editTextContra;
+    View buttonRegister;
 
-    Tracker mTracker;
+    //Tracker mTracker;
 
 
     // -------------------------------------------- //
@@ -46,8 +48,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mTracker.setScreenName("Registro");
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        //mTracker.setScreenName("Registro");
+        //mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         //Asignacion del toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarRegister);
@@ -55,7 +57,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Implementamos el listener de los toques para los botones
-        findViewById(R.id.buttonEntrarRegistro).setOnClickListener(this);
+        buttonRegister = findViewById(R.id.buttonEntrarRegistro);
+        buttonRegister.setOnClickListener(this);
         findViewById(R.id.buttonSaltarRegistro).setOnClickListener(this);
 
         //Instanciamos las variables que se usaran
@@ -143,9 +146,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String stringCorreo = editTextCorreo.getEditableText().toString();
                 String stringContra = editTextContra.getEditableText().toString();
 
-                if (validateFields() > 0) {
-                    return;
-                }
+                if (validateFields() > 0) { return; }
+                buttonRegister.setEnabled(false);
 
                 Map<String, Object> params = new LinkedHashMap<>();
                 params.put("Nombre", stringNombre);
@@ -181,12 +183,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 case WS.WS_registerMail: {
                     JSONObject data = json.getJSONObject("data");
 
-                    mTracker.send(
-                            new HitBuilders.EventBuilder()
-                                    .setCategory("Usuarios").setAction("RegistroUsuario").setLabel("userID").setValue(data.getInt("UserId"))
-                                    .build()
-                    );
-
                     if(!data.getBoolean("Success")) {
                         WS.showMessage(data.getString("ErrorMessage"), RegisterActivity.this);
                         return;
@@ -194,6 +190,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                     Toast.makeText(this, getString(R.string.iniOKRegistro), Toast.LENGTH_SHORT).show();
 
+                    SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPrefName), 0);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt("userID",data.getInt("UserId"));
+                    editor.putString("email",data.getString("Email"));
+                    editor.putBoolean("loggedIn",data.getBoolean("Success"));
+                    editor.commit();
                     Intent intent = new Intent(getApplicationContext(), MainNavigationActivity.class);
                     startActivity(intent);
                 }
@@ -201,5 +203,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             }
         }catch(Exception e){ e.printStackTrace(); }
+        finally {
+            buttonRegister.setEnabled(true);
+        }
     }
 }

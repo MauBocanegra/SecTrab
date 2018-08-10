@@ -11,6 +11,7 @@
     <string name="login_field_boton_saltar">Saltar ></string>
     <string name="login_success">Sesión iniciada correctamente!</string>
     <string name="login_contramenu">Recuperar contraseña</string>
+    <string name="iniOKLogin">Inicio de sesión exitoso</string>
     //Errores marcados en actividad login//
     <string name="login_error_correo_vacio">El campo de correo no puede ir vacío</string>
     <string name="login_error_contra_vacia">El campo de contraseña no puede ir vacío</string>
@@ -58,4 +59,7 @@
     <string name="msgs_nohay">¿Tienes alguna solicitud, gestión, denuncia o sugerencia?\n¡Envíanos un mensaje!\nY a la brevedad alguien del staff te contestará personalmente </string>
 
     <string name="title_appinfo">SETRAPRODE APP</string>
+
+    <string name="ServicesLink">http://svcqroo.iog.digital/api/</string>
+    <string name="sharedPrefName">SharedPrefSETRAPRODE</string>
 </resources>
