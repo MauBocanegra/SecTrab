@@ -35,9 +35,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextCorreo;
     private EditText editTextContra;
     View buttonRegister;
-
-    //Tracker mTracker;
-
+    View progressButtonRegister;
 
     // -------------------------------------------- //
     // ---------------- LIFE CYCLE ---------------- //
@@ -48,7 +46,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-
         //Asignacion del toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarRegister);
         setSupportActionBar(toolbar);
@@ -57,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //Implementamos el listener de los toques para los botones
         buttonRegister = findViewById(R.id.buttonEntrarRegistro);
         buttonRegister.setOnClickListener(this);
+        progressButtonRegister = findViewById(R.id.progressBarRegistro);
         findViewById(R.id.buttonSaltarRegistro).setOnClickListener(this);
 
         //Instanciamos las variables que se usaran
@@ -145,10 +143,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String stringContra = editTextContra.getEditableText().toString();
 
                 if (validateFields() > 0) { return; }
+
+                progressButtonRegister.setVisibility(View.VISIBLE);
                 buttonRegister.setEnabled(false);
 
                 Map<String, Object> params = new LinkedHashMap<>();
-                params.put("Nombre", stringNombre);
+                params.put("Name", stringNombre);
                 params.put("Email", stringCorreo);
                 params.put("Password", stringContra);
                 WS.getInstance(RegisterActivity.this).registerMail(params, this);
@@ -180,6 +180,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             switch (ws) {
                 case WS.WS_registerMail: {
                     JSONObject data = json.getJSONObject("data");
+                    Log.d("RegisterActivityDEBUG",data.toString());
 
                     if(!data.getBoolean("Success")) {
                         WS.showMessage(data.getString("ErrorMessage"), RegisterActivity.this);
@@ -200,6 +201,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         }catch(Exception e){ e.printStackTrace(); }
         finally {
+            progressButtonRegister.setVisibility(View.GONE);
             buttonRegister.setEnabled(true);
         }
     }
