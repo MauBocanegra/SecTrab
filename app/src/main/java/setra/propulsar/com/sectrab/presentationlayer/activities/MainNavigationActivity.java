@@ -1,5 +1,7 @@
 package setra.propulsar.com.sectrab.presentationlayer.activities;
 
+import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 import setra.propulsar.com.sectrab.R;
@@ -29,12 +32,17 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
     AppInfoFragment appInfoFrag;
     FragmentManager fragmentManager;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_app_bar);
         setSupportActionBar(toolbar);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPrefName), 0);
+        int userID = sharedPreferences.getInt("userID",0);
 
         DrawerLayout drawer = (DrawerLayout)findViewById(R.id.main_drawer_navigation_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,7 +71,9 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else { super.onBackPressed();}
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){

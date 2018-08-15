@@ -8,6 +8,8 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
@@ -39,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     View buttonContra;
     View progressContra;
     boolean doubleBackToExitPressedOnce = false;
+
 
     // -------------------------------------------- //
     // ---------------- LIFE CYCLE ---------------- //
@@ -127,6 +130,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
@@ -144,6 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }, 2000);
 
         return;
+
     }
 
     // ----------------------------------------------------------- //
@@ -265,7 +270,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Log.d("UserSignIn","UserSignIn = "+data.getInt("UserId"));
                     editor.putString("email",data.getString("Email"));
                     editor.putBoolean("loggedIn",true);
-                    editor.commit();
+                    editor.apply();
                     String messageToShow=null;
                     try{
                         messageToShow=data.getString("Message");
@@ -274,6 +279,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Log.d("DEB DATA","id="+data.getInt("UserId")+" correo="+data.getString("Email"));
                     Intent intent = new Intent(getApplicationContext(), MainNavigationActivity.class);
                     startActivity(intent);
+                    finish();
                     break;
                     }
             }

@@ -1,6 +1,7 @@
 package setra.propulsar.com.sectrab.presentationlayer.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,10 +19,18 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(intent);
-                finish();
+                SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPrefName),0);
+                if (sharedPreferences.getBoolean("loggedIn",false)){
+                    Intent intent = new Intent(getApplicationContext(),MainNavigationActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
-        },1500);
+        },500);
     }
 }
