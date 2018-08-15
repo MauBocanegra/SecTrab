@@ -63,41 +63,18 @@ public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnR
     // --------------------------------------------- //
     // ---------------- OWN METHODS ---------------- //
     //---------------------------------------------- //
-    public void descargarContactos(){
+    public void descargarContactos() {
         Contacts contacts1 = new Contacts();
         Contacts contacts2 = new Contacts();
-        Contacts contacts3 = new Contacts();
-        Contacts contacts4 = new Contacts();
-        Contacts contacts5 = new Contacts();
-        Contacts contacts6 = new Contacts();
-        Contacts contacts7 = new Contacts();
-        Contacts contacts8 = new Contacts();
         contacts1.setNombreEmpresa("Secretaria del Trabajo, Productividad y Desarrollo Economico");
-        contacts2.setNombreEmpresa("Secretaria del Trabajo, Productividad y Desarrollo Economico");
-        contacts3.setNombreEmpresa("Secretaria del Trabajo, Productividad y Desarrollo Economico");
-        contacts4.setNombreEmpresa("Secretaria del Trabajo, Productividad y Desarrollo Economico");
-        contacts5.setNombreEmpresa("Secretaria del Trabajo, Productividad y Desarrollo Economico");
-        contacts6.setNombreEmpresa("Secretaria del Trabajo, Productividad y Desarrollo Economico");
-        contacts7.setNombreEmpresa("Secretaria del Trabajo, Productividad y Desarrollo Economico");
-        contacts8.setNombreEmpresa("Secretaria del Trabajo, Productividad y Desarrollo Economico");
+        contacts2.setNombreEmpresa("Propulsar");
         contacts1.setUbicacionEmpresa("Tepic, Nayarit");
-        contacts2.setUbicacionEmpresa("Tepic, Nayarit");
-        contacts3.setUbicacionEmpresa("Tepic, Nayarit");
-        contacts4.setUbicacionEmpresa("Tepic, Nayarit");
-        contacts5.setUbicacionEmpresa("Tepic, Nayarit");
-        contacts6.setUbicacionEmpresa("Tepic, Nayarit");
-        contacts7.setUbicacionEmpresa("Tepic, Nayarit");
-        contacts8.setUbicacionEmpresa("Tepic, Nayarit");
+        contacts2.setUbicacionEmpresa("Sinaloa 216, CDMX");
         contacts1.setTelefonoEmpresa("Tel: (311) 258-0929");
-        contacts2.setTelefonoEmpresa("Tel: (311) 258-0929");
-        contacts3.setTelefonoEmpresa("Tel: (311) 258-0929");
-        contacts4.setTelefonoEmpresa("Tel: (311) 258-0929");
-        contacts5.setTelefonoEmpresa("Tel: (311) 258-0929");
-        contacts6.setTelefonoEmpresa("Tel: (311) 258-0929");
-        contacts7.setTelefonoEmpresa("Tel: (311) 258-0929");
-        contacts8.setTelefonoEmpresa("Tel: (311) 258-0929");
+        contacts2.setTelefonoEmpresa("Tel: 28 75 56 23");
 
-        mDataset.add(contacts1); mDataset.add(contacts2); mDataset.add(contacts3); mDataset.add(contacts4); mDataset.add(contacts5); mDataset.add(contacts6); mDataset.add(contacts7); mDataset.add(contacts8);
+        mDataset.add(contacts1);
+        mDataset.add(contacts2);
     }
 
     // ---------------------------------------------------------- //
