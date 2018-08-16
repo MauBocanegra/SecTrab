@@ -1,12 +1,14 @@
 package setra.propulsar.com.sectrab.domainlayer.models;
 
+import java.util.Date;
+
 public class News {
 
     private int idNoticia;
     private String tituloNoticia;
     private String infoNoticia;
     private String linkImagenNoticia;
-
+    private String datetime;
 
     public News(){
 
@@ -30,7 +32,13 @@ public class News {
 
     public String getLinkImagenNoticia() { return linkImagenNoticia; }
 
-    public void setLinkImagenNoticia(String linkImagenNoticia) {
-        this.linkImagenNoticia = linkImagenNoticia;
+    public void setLinkImagenNoticia(String linkImagenNoticia) { this.linkImagenNoticia = linkImagenNoticia; }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 }

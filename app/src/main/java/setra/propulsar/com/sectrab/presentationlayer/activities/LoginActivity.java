@@ -181,7 +181,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Map<String, Object> params = new LinkedHashMap<>();
                 params.put("UserName", stringCorreo);
                 params.put("Password", stringContra);
-                WS.getInstance(LoginActivity.this).userSignIn(params, this);
+                WS.userSignIn(params, this);
 
                 break;
             }

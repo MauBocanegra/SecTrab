@@ -151,7 +151,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 params.put("Name", stringNombre);
                 params.put("Email", stringCorreo);
                 params.put("Password", stringContra);
-                WS.getInstance(RegisterActivity.this).registerMail(params, this);
+                WS.registerMail(params, this);
 
                 break;
             }

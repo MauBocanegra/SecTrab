@@ -9,11 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -132,6 +134,7 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
             news.add(newNews.get(i));
         }
         mAdapter.notifyDataSetChanged();
+
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
@@ -150,7 +153,7 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
 
     @Override
     public void wsAnswered(JSONObject json) {
-        Log.d("GETNewsList",json.toString());
+        Log.d("GETNews",json.toString());
         int ws=0; int status=-1;
         try{status=json.getInt("status");}catch(Exception e){e.printStackTrace();}
         if(status!=0){/*ERRRRRRROOOOOOOORRRRRRR*/}
@@ -159,22 +162,29 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
             ws = json.getInt("ws");
             switch (ws){
                 case WS.WS_getNewsList:{
-                    JSONObject data = json.getJSONObject("data");
-                    JSONArray newNewsJArray = data.getJSONArray("Data");
+                    JSONObject data = json.getJSONObject("news");
+                    JSONArray newsNewsJArray = data.getJSONArray("Value");
                     ArrayList<News> newNews = new ArrayList<News>();
 
-                    for (int i=0; i<newNewsJArray.length(); i++){
-                        JSONObject newNewsJSONObject = newNewsJArray.getJSONObject(i);
+                    for (int i=0; i<newsNewsJArray.length(); i++){
+                        JSONObject newNewsJSONObject = newsNewsJArray.getJSONObject(i);
                         News newNewsJ = new News();
 
                         newNewsJ.setIdNoticia(newNewsJSONObject.getInt("Id"));
                         newNewsJ.setLinkImagenNoticia(newNewsJSONObject.getString("Image"));
                         newNewsJ.setTituloNoticia(newNewsJSONObject.getString("Title"));
                         newNewsJ.setInfoNoticia(newNewsJSONObject.getString("Description"));
+                        newNewsJ.setDatetime(newNewsJSONObject.getString("Published"));
 
                         newNews.add(newNewsJ);
                     }
                     addToList(newNews);
+
+                    if(newNews.size()==0){
+                        Toast.makeText(getActivity(),"Sin noticias por el momento", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getActivity(),"Estas son las noticias.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 

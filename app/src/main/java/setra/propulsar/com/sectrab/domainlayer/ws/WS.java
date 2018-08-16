@@ -152,7 +152,7 @@ public class WS {
 
     public static void getNewsList(Map<String, Object> params, OnWSRequested listener) {
         Log.d("getNewsList", " ----- getNewsListRequested ----- ");
-        String urlString = WS_URL + WS_getNewsListURL;
+        String urlString = WS_URL+WS_getNewsListURL;
         performRequest(urlString, WS_getNewsList, params, GETID, listener);
     }
 
@@ -456,6 +456,7 @@ public class WS {
 
 
     private static JSONObject performRequest(final String urlString, final int wsReq, final Map<String, Object> params, final int postGet, final OnWSRequested provListener) {
+        Log.d("WSDebugComplete","urlString="+urlString+"params="+params.toString()+"postGet="+(postGet==POSTID ? "POST" : postGet==GETID ? "GET" : "MULTIPART"));
         async = new Task(urlString, wsReq, params, postGet, provListener);
         async.execute();
 
