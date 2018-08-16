@@ -2,13 +2,19 @@ package setra.propulsar.com.sectrab.domainlayer.models;
 
 public class News {
 
+    private int idNoticia;
     private String tituloNoticia;
     private String infoNoticia;
     private String linkImagenNoticia;
 
+
     public News(){
 
     }
+
+    public int getIdNoticia() { return idNoticia; }
+
+    public void setIdNoticia(int idNoticia) { this.idNoticia = idNoticia; }
 
     public String getTituloNoticia() { return tituloNoticia; }
 

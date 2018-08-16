@@ -5,25 +5,35 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import setra.propulsar.com.sectrab.R;
 import setra.propulsar.com.sectrab.domainlayer.adapters.NewsAdapter;
 import setra.propulsar.com.sectrab.domainlayer.models.News;
+import setra.propulsar.com.sectrab.domainlayer.ws.WS;
 
-public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<News> mDataset;
+    private ArrayList<News> news;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private int skip=0;
+    private int take=10;
+    int userID=-1;
 
     View view;
 
@@ -50,16 +60,16 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         mRecyclerView = (RecyclerView) view.findViewById(R.id.fragmentnews_recyclerview);
         mRecyclerView.setHasFixedSize(true);
 
-        mDataset = new ArrayList<News>();
+        news = new ArrayList<News>();
 
-        mAdapter = new NewsAdapter(mDataset, getContext());
+        mAdapter = new NewsAdapter(news, getContext());
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout=view.findViewById(R.id.swipeRefreshLayoutFragNews);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout.setOnRefreshListener(NewsFragment.this);
-        descargarNews();
+        getNewsNotifications(false);
         return view;
     }
 
@@ -93,8 +103,36 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         news5.setLinkImagenNoticia("http://diario.mx/images/imagen.php?i=2018-03-LOC13888462d1a7479_8.jpg");
         news6.setLinkImagenNoticia("https://cdn.oem.com.mx/periodicoelmexicano/2018/06/oficinas-de-gobierno-600x400.jpg");
 
-        mDataset.add(news1); mDataset.add(news2);mDataset.add(news3); mDataset.add(news4);mDataset.add(news5); mDataset.add(news6);
+        news.add(news1); news.add(news2);
+        news.add(news3); news.add(news4);
+        news.add(news5); news.add(news6);
         mAdapter.notifyDataSetChanged();
+    }
+
+    // ----------------------------------------------- //
+    // -------------- INTERNAL METHODS --------------- //
+    // ----------------------------------------------- //
+
+    private void getNewsNotifications(boolean isBottomList){
+
+        if (isBottomList){
+            skip+=take;
+        }
+
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("Skip",skip);
+        params.put("Take",take);
+        WS.getNewsList(params,this);
+
+    }
+
+    private void addToList(ArrayList<News> newNews){
+
+        for (int i=0; i<newNews.size(); i++){
+            news.add(newNews.get(i));
+        }
+        mAdapter.notifyDataSetChanged();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     // ---------------------------------------------------------- //
@@ -104,6 +142,43 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onRefresh() {
         Log.d("TAG","onRefresh");
+        news.clear();
+        skip=0; take=10;
+        getNewsNotifications(false);
 
+    }
+
+    @Override
+    public void wsAnswered(JSONObject json) {
+        Log.d("GETNewsList",json.toString());
+        int ws=0; int status=-1;
+        try{status=json.getInt("status");}catch(Exception e){e.printStackTrace();}
+        if(status!=0){/*ERRRRRRROOOOOOOORRRRRRR*/}
+
+        try {
+            ws = json.getInt("ws");
+            switch (ws){
+                case WS.WS_getNewsList:{
+                    JSONObject data = json.getJSONObject("data");
+                    JSONArray newNewsJArray = data.getJSONArray("Data");
+                    ArrayList<News> newNews = new ArrayList<News>();
+
+                    for (int i=0; i<newNewsJArray.length(); i++){
+                        JSONObject newNewsJSONObject = newNewsJArray.getJSONObject(i);
+                        News newNewsJ = new News();
+
+                        newNewsJ.setIdNoticia(newNewsJSONObject.getInt("Id"));
+                        newNewsJ.setLinkImagenNoticia(newNewsJSONObject.getString("Image"));
+                        newNewsJ.setTituloNoticia(newNewsJSONObject.getString("Title"));
+                        newNewsJ.setInfoNoticia(newNewsJSONObject.getString("Description"));
+
+                        newNews.add(newNewsJ);
+                    }
+                    addToList(newNews);
+                }
+            }
+
+            } catch (JSONException e) { e.printStackTrace();
+        }
     }
 }

@@ -86,6 +86,7 @@ public class WS {
     public static void userSignIn(Map<String, Object> params, OnWSRequested listener) {
         Log.d("userSignIn", " ----- userSignInRequested ----- ");
         String urlString = WS_URL + WS_userSignInURL;
+        Log.d("userSignIn", urlString);
         performRequest(urlString, WS_userSignIn, params, POSTID, listener);
     }
 
@@ -149,10 +150,10 @@ public class WS {
         performRequest(urlString, WS_getCaseByFolio, params, GETID, listener);
     }
 
-    public static void getBenefitsList(Map<String, Object> params, OnWSRequested listener) {
-        Log.d("getBenefitsList", " ----- getBenefitsListRequested ----- ");
-        String urlString = WS_URL + WS_getBenefitsListURL;
-        performRequest(urlString, WS_getBenefitsList, params, GETID, listener);
+    public static void getNewsList(Map<String, Object> params, OnWSRequested listener) {
+        Log.d("getNewsList", " ----- getNewsListRequested ----- ");
+        String urlString = WS_URL + WS_getNewsListURL;
+        performRequest(urlString, WS_getNewsList, params, GETID, listener);
     }
 
     public static void getBenefitDetails(Map<String, Object> params, OnWSRequested listener) {
@@ -182,6 +183,7 @@ public class WS {
     public static void registerMail(Map<String, Object> params, OnWSRequested listener) {
         Log.d("registerMail", " ----- registerMailRequested ----- ");
         String urlString = WS_URL + WS_registerMailURL;
+        Log.d("registerMail", urlString);
         performRequest(urlString, WS_registerMail, params, POSTID, listener);
     }
 
@@ -224,6 +226,7 @@ public class WS {
     public static void recoverPassword(Map<String, Object> params, OnWSRequested listener) {
         Log.d("recoverPassword", " ----- recoverPasswordRequested ----- ");
         String urlString = WS_URL + WS_recoverPasswordURL;
+        Log.d("recoverPassword", urlString);
         performRequest(urlString, WS_recoverPassword, params, POSTID, listener);
     }
 
@@ -531,7 +534,7 @@ public class WS {
     public static final int WS_getNotifs = 800;
     public static final int WS_getCases = 900;
     public static final int WS_getCaseDetail = 1500;
-    public static final int WS_getBenefitsList = 1000;
+    public static final int WS_getNewsList = 1000;
     public static final int WS_getBenefitDetails = 1100;
     public static final int WS_getMessages = 1200;
     public static final int WS_sendMessage = 1300;
@@ -555,7 +558,7 @@ public class WS {
     private static final int POSTID = 11;
     private static final int MULTIPARTID = 12;
 
-    public static final String WS_userSignInURL = "UserSession/UserSignin";
+    public static final String WS_userSignInURL = "Login/";
     public static final String WS_getMenuURL = "User/GetHome";
     public static final String WS_getEventDetailsURL = "Event/GetEventDetails";
     public static final String WS_getUserProfileURL = "User/GetUser";
@@ -564,13 +567,13 @@ public class WS {
     public static final String WS_getPendingProposalsURL = "Proposal/GetPendingProposalsList";
     public static final String WS_getNotifsURL = "Notifications/GetNotifications";
     public static final String WS_getCasesURL = "Complaint/GetCasesList";
-    public static final String WS_getBenefitsListURL = "User/GetBenefitsList";
+    public static final String WS_getNewsListURL = "News/";
     public static final String WS_getBenefitDetailsURL = "User/GetBenefitDetails";
     public static final String WS_getMessagesURL = "Message/GetMessages";
     public static final String WS_sendMessageURL = "Message/SendMessages";
     public static final String WS_createProposalURL = "Proposal/CreateProposal";
     public static final String WS_getCaseDetailURL = "Complaint/GetComplaintDetail";
-    public static final String WS_registerMailURL = "User/UserRegistrationWithEmail ";
+    public static final String WS_registerMailURL = "Registery/";
     public static final String WS_getEventsURL = "Event/GetEvents";
     public static final String WS_getSurveyURL = "Survey/GetSurveyDetails";
     public static final String WS_answerSurveyURL = "Survey/AnswerSurvey";
@@ -579,7 +582,7 @@ public class WS {
     public static final String WS_registerFacebookURL = "User/UserRegistrationWithFaceboook";
     public static final String WS_getAboutURL = "Site/GetSiteConfiguration?Name=about";
     public static final String WS_updatePasswordURL = "User/ChangePassword";
-    public static final String WS_recoverPasswordURL = "User/RecoveryPassword";
+    public static final String WS_recoverPasswordURL = "RecoverPassword/";
     public static final String WS_getOfficerInfoURL = "User/GetBasicProfileOfficial";
     public static final String WS_getBotTokenURL = "Site/GetSiteConfiguration?Name=directLine";
     public static final String WS_getCaseByFolioURL = "Complaint/GetComplaintDetailWithFolio";

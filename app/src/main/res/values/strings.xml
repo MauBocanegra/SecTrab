@@ -60,6 +60,6 @@
 
     <string name="title_appinfo">SETRAPRODE APP</string>
 
-    <string name="ServicesLink">http://svcqroo.iog.digital/api/</string>
+    <string name="ServicesLink">http://setraprodesvc.iog.digital/api/</string>
     <string name="sharedPrefName">SharedPrefSETRAPRODE</string>
 </resources>
