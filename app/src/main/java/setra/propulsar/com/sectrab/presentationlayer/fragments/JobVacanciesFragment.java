@@ -5,25 +5,36 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import setra.propulsar.com.sectrab.R;
 import setra.propulsar.com.sectrab.domainlayer.adapters.JobsAdapter;
 import setra.propulsar.com.sectrab.domainlayer.models.Jobs;
+import setra.propulsar.com.sectrab.domainlayer.ws.WS;
 
-public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayout.OnRefreshListener {
+public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayout.OnRefreshListener, WS.OnWSRequested {
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private JobsAdapter mAdapter;
-    private ArrayList<Jobs> mDataset;
+    private ArrayList<Jobs> jobs;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private int skip=0;
+    private int take=10;
+    int userID=-1;
 
     View view;
 
@@ -47,55 +58,46 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
         mRecyclerView = (RecyclerView) view.findViewById(R.id.fragmentjobs_recyclerview);
         mRecyclerView.setHasFixedSize(true);
 
-        mDataset = new ArrayList<Jobs>();
+        jobs = new ArrayList<Jobs>();
 
-        mAdapter = new JobsAdapter(mDataset, getContext());
+        mAdapter = new JobsAdapter(jobs, getContext());
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout=view.findViewById(R.id.swipeRefreshLayoutFragJobs);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout.setOnRefreshListener(JobVacanciesFragment.this);
-        descargarJobs();
+        getJobsNotifications(false);
+
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("Skip",skip);
+        params.put("Take",take);
+        WS.getJobsList(params,this);
+
         return view;
     }
 
-    // --------------------------------------------- //
-    // ---------------- OWN METHODS ---------------- //
-    //---------------------------------------------- //
+    // ----------------------------------------------- //
+    // -------------- INTERNAL METHODS --------------- //
+    // ----------------------------------------------- //
 
-    private void descargarJobs(){
+    private void getJobsNotifications(boolean isBottomList){
 
-        Jobs jobs1 = new Jobs();
-        Jobs jobs2 = new Jobs();
-        Jobs jobs3 = new Jobs();
-        Jobs jobs4 = new Jobs();
-        jobs1.setNombreEmpresa("Santader");
-        jobs2.setNombreEmpresa("Softek");
-        jobs3.setNombreEmpresa("Santader");
-        jobs4.setNombreEmpresa("Softek");
-        jobs1.setInfoEmpresa("Banking");
-        jobs2.setInfoEmpresa("I.T.");
-        jobs3.setInfoEmpresa("Banking");
-        jobs4.setInfoEmpresa("I.T.");
-        jobs1.setPuestoEmpresa("Gerente Grupos Especializados");
-        jobs2.setPuestoEmpresa("GENERALISTA DE RECURSOS HUMANOS");
-        jobs3.setPuestoEmpresa("Gerente Grupos Especializados");
-        jobs4.setPuestoEmpresa("GENERALISTA DE RECURSOS HUMANOS");
-        jobs1.setDescripcionEmpleo("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
-        jobs2.setDescripcionEmpleo("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
-        jobs3.setDescripcionEmpleo("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
-        jobs4.setDescripcionEmpleo("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
-        jobs1.setUbicacionEmpleo("CDMX");
-        jobs2.setUbicacionEmpleo("CDMX");
-        jobs3.setUbicacionEmpleo("CDMX");
-        jobs4.setUbicacionEmpleo("CDMX");
-        jobs1.setLinkImagenEmpresa("https://www.expoknews.com/wp-content/uploads/2013/04/Santander.jpg");
-        jobs2.setLinkImagenEmpresa("https://qph.fs.quoracdn.net/main-thumb-t-127841-200-ijmvviflpziltgehxhefkmnwirkiebeg.jpeg");
-        jobs3.setLinkImagenEmpresa("https://www.expoknews.com/wp-content/uploads/2013/04/Santander.jpg");
-        jobs4.setLinkImagenEmpresa("https://qph.fs.quoracdn.net/main-thumb-t-127841-200-ijmvviflpziltgehxhefkmnwirkiebeg.jpeg");
+        if (isBottomList){
+            skip+=take;
+        }
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("Skip",skip);
+        params.put("Take",take);
+        WS.getJobsList(params,this);
+    }
 
-        mDataset.add(jobs1); mDataset.add(jobs2); mDataset.add(jobs3); mDataset.add(jobs4);
+    private void addToList (ArrayList<Jobs> newJobs){
+        for (int i=0; i<newJobs.size(); i++){
+            jobs.add(newJobs.get(i));
+        }
+        mAdapter.notifyDataSetChanged();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     // ---------------------------------------------------------- //
@@ -105,6 +107,53 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
     @Override
     public void onRefresh() {
         Log.d("TAG","onRefresh");
+        jobs.clear();
+        skip=0; take=10;
+        getJobsNotifications(false);
+    }
+
+    @Override
+    public void wsAnswered(JSONObject json) {
+        Log.d("GETJobs",json.toString());
+        int ws=0; int status=-1;
+        try{status=json.getInt("status");}catch(Exception e){e.printStackTrace();}
+        if(status!=0){/*ERRRRRRROOOOOOOORRRRRRR*/}
+
+        try {
+            ws = json.getInt("ws");
+            switch (ws) {
+                case WS.WS_getJobsList:{
+                    JSONObject data = json.getJSONObject("data");
+                    JSONArray newJobsJArray = data.getJSONArray("jsonArray");
+                    ArrayList<Jobs> newJobs = new ArrayList<Jobs>();
+
+                    for (int i=0; i<newJobsJArray.length(); i++){
+                        JSONObject newJobsJSONObject = newJobsJArray.getJSONObject(i);
+                        Jobs newJobsJ = new Jobs();
+
+                        newJobsJ.setIdEmpleo(newJobsJSONObject.getInt("Id"));
+                        newJobsJ.setLinkLogoEmpresa(newJobsJSONObject.getString("Logo"));
+                        newJobsJ.setNombreEmpresa(newJobsJSONObject.getString("Company"));
+                        newJobsJ.setSectorEmpresa(newJobsJSONObject.getString("Sector"));
+                        newJobsJ.setTitlePuestoEmpresa(newJobsJSONObject.getString("Title"));
+                        newJobsJ.setDescripcionEmpleo(newJobsJSONObject.getString("Description"));
+                        newJobsJ.setTelefonoEmpresa(newJobsJSONObject.getString("Phone"));
+                        newJobsJ.setEmailEmpresa(newJobsJSONObject.getString("Email"));
+                        newJobsJ.setDatetime(newJobsJSONObject.getString("Published"));
+
+                        newJobs.add(newJobsJ);
+                    }
+                    addToList(newJobs);
+
+                    if(newJobs.size()==0){
+                        Toast.makeText(getActivity(),"Sin ofertas de empleo por el momento", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getActivity(),"Estas son las ofertas de empleo.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+        }catch (JSONException e) { e.printStackTrace(); }
 
     }
 }

@@ -53,7 +53,7 @@
 
     <string name="enviar_ubi">Enviar esta ubicación</string>
 
-    <string name="bottomsheet_newsdetail">Siguiente</string>
+    <string name="button_newsdetail">Siguiente    </string>
     <string name="bottomsheet_jobsdetail">Si estás interesado, enviar C.V. al correo</string>
 
     <string name="msgs_nohay">¿Tienes alguna solicitud, gestión, denuncia o sugerencia?\n¡Envíanos un mensaje!\nY a la brevedad alguien del staff te contestará personalmente </string>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -14,6 +13,8 @@ import android.view.View;
 import android.widget.Toast;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -25,8 +26,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import setra.propulsar.com.sectrab.R;
@@ -108,10 +107,10 @@ public class WS {
         performRequest(urlString, WS_getUserProfile, params, GETID, listener);
     }
 
-    public static void getProposalDetail(Map<String, Object> params, OnWSRequested listener) {
-        Log.d("proposalDetail", " ----- proposalDetailRequested ----- ");
-        String urlString = WS_URL + WS_getProposalDetailURL;
-        performRequest(urlString, WS_getProposalDetail, params, GETID, listener);
+    public static void getJobsDetail(Map<String, Object> params, OnWSRequested listener) {
+        Log.d("JobsDetail", " ----- proposalJobsRequested ----- ");
+        String urlString = WS_URL + WS_getJobsDetailURL;
+        performRequest(urlString, WS_getJobsDetail, params, GETID, listener);
     }
 
     public static void getVotedProposals(Map<String, Object> params, OnWSRequested listener) {
@@ -156,10 +155,10 @@ public class WS {
         performRequest(urlString, WS_getNewsList, params, GETID, listener);
     }
 
-    public static void getBenefitDetails(Map<String, Object> params, OnWSRequested listener) {
-        Log.d("getBenefitDetails", " ----- getBenefitDetailsRequested ----- ");
-        String urlString = WS_URL + WS_getBenefitDetailsURL;
-        performRequest(urlString, WS_getBenefitDetails, params, GETID, listener);
+    public static void getNewsDetails(Map<String, Object> params, OnWSRequested listener) {
+        Log.d("getNewsDetails", " ----- getNewsDetailsRequested ----- ");
+        String urlString = WS_URL + WS_getNewsDetailsURL;
+        performRequest(urlString, WS_getNewsDetails, params, GETID, listener);
     }
 
     public static void getMessages(Map<String, Object> params, OnWSRequested listener) {
@@ -187,10 +186,10 @@ public class WS {
         performRequest(urlString, WS_registerMail, params, POSTID, listener);
     }
 
-    public static void getEvents(Map<String, Object> params, OnWSRequested listener) {
+    public static void getJobsList(Map<String, Object> params, OnWSRequested listener) {
         Log.d("getEvents", " ----- getEventsRequested ----- ");
-        String urlString = WS_URL + WS_getEventsURL;
-        performRequest(urlString, WS_getEvents, params, GETID, listener);
+        String urlString = WS_URL + WS_getJobsURL;
+        performRequest(urlString, WS_getJobsList, params, GETID, listener);
     }
 
     public static void getSurveyDetail(Map<String, Object> params, OnWSRequested listener) {
@@ -385,7 +384,13 @@ public class WS {
                             response.append(line);
                     }
                     rd.close();
-                    JSONObject json = new JSONObject(response.toString());
+                    JSONObject json=null;
+                    try {
+                        json = new JSONObject(response.toString());
+                    }catch(JSONException e){
+                        json = new JSONObject();
+                        json.put("jsonArray",new JSONArray(response.toString()));
+                    }
                     JSONObject jsonRes = new JSONObject();
                     jsonRes.put("status", 0);
                     jsonRes.put("ws", wsReq);
@@ -525,23 +530,33 @@ public class WS {
     public static String WS_URL;
     //public static final String WS_URL = "http://svcjala.iog.digital/api/";
 
+    //Usos en SETRAPRODE//
     public static final int WS_userSignIn = 100;
+    public static final int WS_getNewsList = 1000;
+    public static final int WS_getNewsDetails = 1100;
+    public static final int WS_registerMail = 1600;
+    public static final int WS_getJobsList = 1700;
+    public static final int WS_getJobsDetail = 500;
+    public static final int WS_recoverPassword = 2500;
+
+
+    //copias de PGB//
+
     public static final int WS_getMenu = 200;
     public static final int WS_getEventDetails = 300;
     public static final int WS_getUserProfile = 400;
-    public static final int WS_getProposalDetail = 500;
+
     public static final int WS_getVotedProposals = 600;
     public static final int WS_getPendingProposals = 700;
     public static final int WS_getNotifs = 800;
     public static final int WS_getCases = 900;
     public static final int WS_getCaseDetail = 1500;
-    public static final int WS_getNewsList = 1000;
-    public static final int WS_getBenefitDetails = 1100;
+
+
     public static final int WS_getMessages = 1200;
     public static final int WS_sendMessage = 1300;
     public static final int WS_createProposal = 1400;
-    public static final int WS_registerMail = 1600;
-    public static final int WS_getEvents = 1700;
+
     public static final int WS_getSurvey = 1800;
     public static final int WS_answerSurvey = 1900;
     public static final int WS_voteProposal = 2000;
@@ -549,7 +564,7 @@ public class WS {
     public static final int WS_registerFacebook = 2200;
     public static final int WS_getAbout = 2300;
     public static final int WS_updatePassword = 2400;
-    public static final int WS_recoverPassword = 2500;
+
     public static final int WS_uploadPhoto = 2600;
     public static final int WS_getOfficerInfo = 2700;
     public static final int WS_getBotToken = 2800;
@@ -560,22 +575,30 @@ public class WS {
     private static final int MULTIPARTID = 12;
 
     public static final String WS_userSignInURL = "Login/";
+    public static final String WS_registerMailURL = "Registery/";
+    public static final String WS_recoverPasswordURL = "RecoverPassword/";
+    public static final String WS_getNewsListURL = "News/";
+    public static final String WS_getNewsDetailsURL = "News/{id}";
+    public static final String WS_getJobsURL = "Jobs/";
+    public static final String WS_getJobsDetailURL = "Jobs/{id}";
+
+
+
     public static final String WS_getMenuURL = "User/GetHome";
     public static final String WS_getEventDetailsURL = "Event/GetEventDetails";
     public static final String WS_getUserProfileURL = "User/GetUser";
-    public static final String WS_getProposalDetailURL = "Proposal/GetProposalDetails";
+
     public static final String WS_getVotedProposalsURL = "Proposal/GetVotedProposalsList2";
     public static final String WS_getPendingProposalsURL = "Proposal/GetPendingProposalsList";
     public static final String WS_getNotifsURL = "Notifications/GetNotifications";
     public static final String WS_getCasesURL = "Complaint/GetCasesList";
-    public static final String WS_getNewsListURL = "News/";
-    public static final String WS_getBenefitDetailsURL = "User/GetBenefitDetails";
+
+
     public static final String WS_getMessagesURL = "Message/GetMessages";
     public static final String WS_sendMessageURL = "Message/SendMessages";
     public static final String WS_createProposalURL = "Proposal/CreateProposal";
     public static final String WS_getCaseDetailURL = "Complaint/GetComplaintDetail";
-    public static final String WS_registerMailURL = "Registery/";
-    public static final String WS_getEventsURL = "Event/GetEvents";
+
     public static final String WS_getSurveyURL = "Survey/GetSurveyDetails";
     public static final String WS_answerSurveyURL = "Survey/AnswerSurvey";
     public static final String WS_voteProposalURL = "Proposal/VoteProposal";
@@ -583,7 +606,7 @@ public class WS {
     public static final String WS_registerFacebookURL = "User/UserRegistrationWithFaceboook";
     public static final String WS_getAboutURL = "Site/GetSiteConfiguration?Name=about";
     public static final String WS_updatePasswordURL = "User/ChangePassword";
-    public static final String WS_recoverPasswordURL = "RecoverPassword/";
+
     public static final String WS_getOfficerInfoURL = "User/GetBasicProfileOfficial";
     public static final String WS_getBotTokenURL = "Site/GetSiteConfiguration?Name=directLine";
     public static final String WS_getCaseByFolioURL = "Complaint/GetComplaintDetailWithFolio";

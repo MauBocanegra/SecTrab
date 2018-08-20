@@ -1,6 +1,7 @@
 package setra.propulsar.com.sectrab.domainlayer.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 import setra.propulsar.com.sectrab.R;
 import setra.propulsar.com.sectrab.domainlayer.models.News;
+import setra.propulsar.com.sectrab.presentationlayer.activities.NewsDetalleActivity;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
@@ -64,6 +66,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         public ViewHolder(View v)
         {
             super (v);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, NewsDetalleActivity.class);
+                    intent.putExtra("Id",mDataset.get(getLayoutPosition()).getIdNoticia());
+                    mContext.startActivity(intent);
+                }
+            });
             fullCard = v.findViewById(R.id.itemnews_cardView);
             textViewTitulo = v.findViewById(R.id.itemnews_textView_titulo);
             textViewDescripcion = v.findViewById(R.id.itemnews_textView_infonoticia);

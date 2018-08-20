@@ -1,6 +1,7 @@
 package setra.propulsar.com.sectrab.domainlayer.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 
 import setra.propulsar.com.sectrab.R;
 import setra.propulsar.com.sectrab.domainlayer.models.Jobs;
+import setra.propulsar.com.sectrab.presentationlayer.activities.JobsDetalleActivity;
+import setra.propulsar.com.sectrab.presentationlayer.activities.NewsDetalleActivity;
 
 public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
 
@@ -40,12 +43,13 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
+        Picasso.with(mContext).load(Uri.parse((mDataset.get(position)).getLinkLogoEmpresa())).into(holder.imageViewImagen);
         holder.textViewNombre.setText(mDataset.get(position).getNombreEmpresa());
-        holder.textViewInformacion.setText(mDataset.get(position).getInfoEmpresa());
-        holder.textViewPuesto.setText(mDataset.get(position).getPuestoEmpresa());
+        holder.textViewInformacion.setText(mDataset.get(position).getSectorEmpresa());
+        holder.textViewPuesto.setText(mDataset.get(position).getTitlePuestoEmpresa());
         holder.textViewDescripcion.setText(mDataset.get(position).getDescripcionEmpleo());
         holder.textViewUbicacion.setText(mDataset.get(position).getUbicacionEmpleo());
-        Picasso.with(mContext).load(Uri.parse((mDataset.get(position)).getLinkImagenEmpresa())).into(holder.imageViewImagen);
+
     }
 
     @Override
@@ -69,6 +73,14 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         public ViewHolder(View v)
         {
             super (v);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, JobsDetalleActivity.class);
+                    intent.putExtra("Id",mDataset.get(getLayoutPosition()).getIdEmpleo());
+                    mContext.startActivity(intent);
+                }
+            });
             fullcard = v.findViewById(R.id.itemjob_cardView_fullview);
             imageViewImagen = v.findViewById(R.id.itemjob_imageView_imagenempresa);
             textViewNombre = v.findViewById(R.id.itemjob_textView_nombreempresa);
