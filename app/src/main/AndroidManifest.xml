@@ -37,7 +37,8 @@
             android:theme="@style/AppThemeNoBar"/>
         <activity
             android:name=".presentationlayer.activities.JobsDetalleActivity"
-            android:theme="@style/AppThemeNoBar"/>
+            android:theme="@style/AppThemeNoBar"
+            android:parentActivityName=".presentationlayer.activities.MainNavigationActivity"/>
     </application>
 
 </manifest>
