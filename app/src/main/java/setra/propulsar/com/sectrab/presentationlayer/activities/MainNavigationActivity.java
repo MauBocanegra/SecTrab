@@ -36,6 +36,8 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
     AppInfoFragment appInfoFrag;
     FragmentManager fragmentManager;
 
+    boolean doubleBackToExitPressedOnce = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,11 +71,39 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //onBackPressed();
+                Log.d("backDeb","BACK PRESSED!");
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_drawer_navigation_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else { super.onBackPressed();}
+        } else {
+            if (doubleBackToExitPressedOnce) {
+                MainNavigationActivity.this.finishAffinity();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
+
+            return;
+        }
     }
 
     private void logOut(){
@@ -112,12 +142,14 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
         finish();
     }
 
+    /*
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
         return super.onOptionsItemSelected(item);
     }
+    */
 
 
     //Esta es la implementacion del listener
