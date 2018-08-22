@@ -79,7 +79,7 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
     }
 
     private void logOut(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 
         builder.setTitle("¿Deseas cerrar sesion?");
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
@@ -95,6 +95,11 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
                 editor.commit();
                 sendToLogin();
 
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
             }
         });
