@@ -1,5 +1,7 @@
 package setra.propulsar.com.sectrab.presentationlayer.activities;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -8,7 +10,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AlertDialogLayout;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.util.Log;
@@ -74,6 +78,33 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
 
     }
 
+    private void logOut(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+
+        builder.setTitle("¿Deseas cerrar sesion?");
+        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getResources().getString(R.string.sharedPrefName),0);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.putInt("userID",0);
+                editor.putString("email","");
+                editor.putBoolean("loggedIn",false);
+                editor.commit();
+                sendToLogin();
+
+
+            }
+        });
+    }
+    private void sendToLogin(){
+        Intent intent = new Intent(MainNavigationActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -85,8 +116,6 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
     //Esta es la implementacion del listener
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        int id = item.getItemId();
 
         switch (item.getItemId()){
             case R.id.nav_noticias: {
@@ -112,6 +141,11 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
             case R.id.nav_settings: {
                 Log.d("NavigationDrawerDebug","Informacion de la App");
                 fragmentManager.beginTransaction().replace(R.id.contenedorrr, appInfoFrag).commit();
+                break;
+            }
+            case R.id.nav_cerrar_sesion:{
+                Log.d("NavigationDrawerDebug","Cerrar sesión");
+                logOut();
                 break;
             }
         }

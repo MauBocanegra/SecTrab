@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo_login"
+        android:icon="@mipmap/ic_launcher_setraprode"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_setraprode"
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoBar">
         <activity

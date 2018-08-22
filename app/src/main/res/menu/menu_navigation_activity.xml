@@ -18,6 +18,9 @@
         <item
             android:id="@+id/nav_contacto"
             android:title="@string/nav_title_contacto"/>
+        <item
+        android:id="@+id/nav_cerrar_sesion"
+        android:title="@string/nav_title_cerrar_sesion"/>
     </group>
     <group android:id="@+id/menu_navegacion_footer">
         <item
