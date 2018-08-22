@@ -149,10 +149,9 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
                     addToList(newJobs);
 
                     if(newJobs.size()==0){
-                        Toast.makeText(getActivity(),"Sin ofertas de empleo por el momento", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getActivity(),"Estas son las ofertas de empleo.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getString(R.string.jobs_nohay), Toast.LENGTH_SHORT).show();
                     }
+
                 }
                 progressLoading.setVisibility(View.GONE);
             }

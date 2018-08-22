@@ -58,7 +58,8 @@
     <string name="bottomsheet_jobsdetail">Si estás interesado, enviar C.V. al correo</string>
 
     <string name="msgs_nohay">¿Tienes alguna solicitud, gestión, denuncia o sugerencia?\n¡Envíanos un mensaje!\nY a la brevedad alguien del staff te contestará personalmente </string>
-
+    <string name="news_nohay">Sin noticias por el momento.</string>
+    <string name="jobs_nohay">Sin ofertas de empleo por el momento.</string>
     <string name="title_appinfo">SETRAPRODE APP</string>
 
     <string name="ServicesLink">http://setraprodesvc.iog.digital/api/</string>

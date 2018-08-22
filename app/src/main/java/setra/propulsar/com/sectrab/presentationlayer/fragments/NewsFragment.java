@@ -153,9 +153,7 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
                     addToList(newNews);
 
                     if(newNews.size()==0){
-                        Toast.makeText(getActivity(),"Sin noticias por el momento", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getActivity(),"Estas son las noticias.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getString(R.string.news_nohay), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
