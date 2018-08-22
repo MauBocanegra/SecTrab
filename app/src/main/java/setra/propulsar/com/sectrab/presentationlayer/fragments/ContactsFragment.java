@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnR
     private ContactsAdapter mAdapter;
     private ArrayList<Contacts> mDataset;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    View progressLoading;
 
 
     public static ContactsFragment newInstance(){return new ContactsFragment();}
@@ -50,6 +52,8 @@ public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         mAdapter = new ContactsAdapter(mDataset, getContext());
         mRecyclerView.setAdapter(mAdapter);
+        progressLoading=view.findViewById(R.id.progressBarContactsFrag);
+        progressLoading.setVisibility(View.VISIBLE);
 
         mSwipeRefreshLayout=view.findViewById(R.id.swipeRefreshLayoutFragContacts);
 
@@ -73,6 +77,7 @@ public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnR
         contacts1.setTelefonoEmpresa("Tel: (311) 258-0929");
         contacts2.setTelefonoEmpresa("Tel: 28 75 56 23");
 
+        progressLoading.setVisibility(View.GONE);
         mDataset.add(contacts1);
         mDataset.add(contacts2);
     }
@@ -84,6 +89,7 @@ public class ContactsFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         Log.d("TAG","onRefresh");
+        descargarContactos();
 
     }
 

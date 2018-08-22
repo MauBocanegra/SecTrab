@@ -38,6 +38,7 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
     int userID=-1;
 
     View view;
+    View progressLoading;
 
     public static NewsFragment newInstance(){ return new NewsFragment();}
     public NewsFragment(){ }
@@ -65,6 +66,8 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
         mAdapter = new NewsAdapter(news, getContext());
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout=view.findViewById(R.id.swipeRefreshLayoutFragNews);
+        progressLoading=view.findViewById(R.id.progressBarNewsFrag);
+        progressLoading.setVisibility(View.VISIBLE);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -156,6 +159,7 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
                     }
                 }
             }
+            progressLoading.setVisibility(View.GONE);
 
             } catch (JSONException e) { e.printStackTrace(); }
     }

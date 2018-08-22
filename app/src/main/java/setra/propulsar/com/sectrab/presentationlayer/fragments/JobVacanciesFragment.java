@@ -37,6 +37,7 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
     int userID=-1;
 
     View view;
+    View progressLoading;
 
     public static JobVacanciesFragment newInstance(){return new JobVacanciesFragment();}
     public JobVacanciesFragment(){}
@@ -63,6 +64,8 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
         mAdapter = new JobsAdapter(jobs, getContext());
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout=view.findViewById(R.id.swipeRefreshLayoutFragJobs);
+        progressLoading=view.findViewById(R.id.progressBarNewsFrag);
+        progressLoading.setVisibility(View.VISIBLE);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -151,7 +154,7 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
                         Toast.makeText(getActivity(),"Estas son las ofertas de empleo.", Toast.LENGTH_SHORT).show();
                     }
                 }
-
+                progressLoading.setVisibility(View.GONE);
             }
         }catch (JSONException e) { e.printStackTrace(); }
 

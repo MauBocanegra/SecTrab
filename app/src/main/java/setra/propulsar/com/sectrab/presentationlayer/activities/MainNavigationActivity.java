@@ -79,7 +79,7 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
     }
 
     private void logOut(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MainNavigationActivity.this);
 
         builder.setTitle("¿Deseas cerrar sesion?");
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
@@ -103,6 +103,10 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
 
             }
         });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.show();
     }
     private void sendToLogin(){
         Intent intent = new Intent(MainNavigationActivity.this, LoginActivity.class);
