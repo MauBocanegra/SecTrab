@@ -26,9 +26,6 @@
             android:parentActivityName=".presentationlayer.activities.LoginActivity"
             android:theme="@style/AppThemeNoBar" />
         <activity
-            android:name=".presentationlayer.activities.DummyActivity"
-            android:theme="@style/AppThemeNoBar" />
-        <activity
             android:name=".presentationlayer.activities.MainNavigationActivity"
             android:theme="@style/AppThemeNoBar" />
         <activity

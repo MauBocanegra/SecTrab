@@ -194,10 +194,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     editor.putInt("userID",data.getInt("UserId"));
                     editor.putString("email",data.getString("Email"));
                     editor.putBoolean("loggedIn",data.getBoolean("Success"));
-                    editor.apply();
+                    editor.commit();
                     Intent intent = new Intent(getApplicationContext(), MainNavigationActivity.class);
                     startActivity(intent);
                     finish();
+                    break;
                 }
             }
         }catch(Exception e){ e.printStackTrace(); }

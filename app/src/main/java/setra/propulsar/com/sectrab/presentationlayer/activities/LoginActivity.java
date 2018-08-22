@@ -270,7 +270,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Log.d("UserSignIn","UserSignIn = "+data.getInt("UserId"));
                     editor.putString("email",data.getString("Email"));
                     editor.putBoolean("loggedIn",true);
-                    editor.apply();
+                    editor.commit();
                     String messageToShow=null;
                     try{
                         messageToShow=data.getString("Message");

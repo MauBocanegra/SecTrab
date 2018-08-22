@@ -36,8 +36,6 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
     AppInfoFragment appInfoFrag;
     FragmentManager fragmentManager;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +63,7 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
         chatFrag = new ChatFragment();
         appInfoFrag = new AppInfoFragment();
 
+
         //Fragment inicial
         fragmentManager.beginTransaction().replace(R.id.contenedorrr, newsFrag).commit();
     }
@@ -75,7 +74,6 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else { super.onBackPressed();}
-
     }
 
     private void logOut(){
