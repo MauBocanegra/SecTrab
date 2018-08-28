@@ -1,6 +1,8 @@
 package setra.propulsar.com.sectrab.presentationlayer.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,9 +35,16 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
     private ArrayList<News> news;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private int skip=0;
-    private int take=10;
+    private int skipIni=0;
+    private int takeIni=3;
+    private int skip=skipIni;
+    private int take=takeIni;
     int userID=-1;
+
+    private int visibleItemCount;
+    private int totalItemCount;
+    private int pastVisiblesItems;
+    private boolean topRequested=false;
 
     View view;
     View progressLoading;
@@ -72,11 +81,11 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout.setOnRefreshListener(NewsFragment.this);
-        getNewsNotifications(false);
 
+        mRecyclerView.addOnScrollListener(setScrollListener());
         Map<String, Object> params = new LinkedHashMap<>();
-        params.put("Skip",skip);
-        params.put("Take",take);
+        //params.put("Skip",skip);
+        //params.put("Take",take);
         WS.getNewsList(params,this);
 
         return view;
@@ -87,10 +96,16 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
     // -------------- INTERNAL METHODS --------------- //
     // ----------------------------------------------- //
 
-    private void getNewsNotifications(boolean isBottomList){
+    private void getNewsNotifications(boolean isTopList){
 
-        if (isBottomList){
+        mSwipeRefreshLayout.setRefreshing(true);
+
+        if (isTopList){
             skip+=take;
+        }else{
+            skip=skipIni; take=takeIni;
+            news.clear();
+            mAdapter.notifyDataSetChanged();
         }
 
         Map<String, Object> params = new LinkedHashMap<>();
@@ -106,6 +121,7 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
             news.add(newNews.get(i));
         }
         mAdapter.notifyDataSetChanged();
+        mLayoutManager.scrollToPosition(news.size());
 
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -118,10 +134,12 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
     public void onRefresh() {
         Log.d("TAG","onRefresh");
         news.clear();
-        skip=0; take=10;
+        skipIni=0; takeIni=3;
         getNewsNotifications(false);
 
     }
+
+
 
     @Override
     public void wsAnswered(JSONObject json) {
@@ -138,6 +156,11 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
                     JSONArray newsNewsJArray = data.getJSONArray("jsonArray");
                     ArrayList<News> newNews = new ArrayList<News>();
 
+                    if (newsNewsJArray.length()==0 && topRequested){
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        return;
+                    }
+
                     for (int i=0; i<newsNewsJArray.length(); i++){
                         JSONObject newNewsJSONObject = newsNewsJArray.getJSONObject(i);
                         News newNewsJ = new News();
@@ -151,6 +174,7 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
                         newNews.add(newNewsJ);
                     }
                     addToList(newNews);
+                    topRequested=false;
 
                     if(newNews.size()==0){
                         Toast.makeText(getActivity(),getString(R.string.news_nohay), Toast.LENGTH_SHORT).show();
@@ -160,5 +184,32 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
             progressLoading.setVisibility(View.GONE);
 
             } catch (JSONException e) { e.printStackTrace(); }
+    }
+
+    // ---------------------------------------------------- //
+    // -------------- SCROLL IMPLEMENTATION --------------- //
+    // ---------------------------------------------------- //
+
+    private RecyclerView.OnScrollListener setScrollListener(){
+        return new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (topRequested){return;}
+
+                if (dy < 0 ){
+
+                    visibleItemCount = mLayoutManager.getChildCount();
+                    totalItemCount = mLayoutManager.getItemCount();
+                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if ((visibleItemCount+pastVisiblesItems)==totalItemCount){
+                        topRequested=true;
+                        getNewsNotifications(true);
+                    }
+                }
+            }
+        };
     }
 }

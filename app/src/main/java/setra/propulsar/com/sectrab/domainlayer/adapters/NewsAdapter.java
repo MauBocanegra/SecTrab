@@ -20,12 +20,19 @@ import setra.propulsar.com.sectrab.presentationlayer.activities.NewsDetalleActiv
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
+    private final int VIEW_TYPE_ITEM=1, VIEW_TYPE_LOADING=0;
+
     private ArrayList<News> mDataset;
     Context mContext;
 
     public NewsAdapter(ArrayList<News> myDataset, Context mContext){
         mDataset = myDataset;
         this.mContext = mContext;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return mDataset.get(position) instanceof News ? VIEW_TYPE_ITEM : VIEW_TYPE_LOADING;
     }
 
     // ------------------------------------------------------------- //

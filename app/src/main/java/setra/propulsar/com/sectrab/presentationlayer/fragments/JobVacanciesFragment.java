@@ -1,6 +1,7 @@
 package setra.propulsar.com.sectrab.presentationlayer.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,9 +33,15 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
     private ArrayList<Jobs> jobs;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private int skip=0;
-    private int take=10;
-    int userID=-1;
+    private int skipIni=0;
+    private int takeIni=3;
+    private int skip=skipIni;
+    private int take=takeIni;
+
+    private int visibleItemCount;
+    private int totalItemCount;
+    private int pastVisiblesItems;
+    private boolean topRequested=false;
 
     View view;
     View progressLoading;
@@ -70,8 +77,8 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout.setOnRefreshListener(JobVacanciesFragment.this);
-        getJobsNotifications(false);
 
+        mRecyclerView.addOnScrollListener(setScrollListener());
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("Skip",skip);
         params.put("Take",take);
@@ -84,10 +91,16 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
     // -------------- INTERNAL METHODS --------------- //
     // ----------------------------------------------- //
 
-    private void getJobsNotifications(boolean isBottomList){
+    private void getJobs(boolean isBottomList){
+
+        mSwipeRefreshLayout.setRefreshing(true);
 
         if (isBottomList){
             skip+=take;
+        }else{
+            skip=skipIni; take=takeIni;
+            jobs.clear();
+            mAdapter.notifyDataSetChanged();
         }
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("Skip",skip);
@@ -100,6 +113,7 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
             jobs.add(newJobs.get(i));
         }
         mAdapter.notifyDataSetChanged();
+        mLayoutManager.scrollToPosition(jobs.size());
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
@@ -111,9 +125,13 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
     public void onRefresh() {
         Log.d("TAG","onRefresh");
         jobs.clear();
-        skip=0; take=10;
-        getJobsNotifications(false);
+        skipIni=0; takeIni=3;
+        getJobs(false);
     }
+
+    // ---------------------------------------------------------- //
+    // -------------- WEB SERVICES IMPLEMENTATION --------------- //
+    // ---------------------------------------------------------- //
 
     @Override
     public void wsAnswered(JSONObject json) {
@@ -129,6 +147,11 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
                     JSONObject data = json.getJSONObject("data");
                     JSONArray newJobsJArray = data.getJSONArray("jsonArray");
                     ArrayList<Jobs> newJobs = new ArrayList<Jobs>();
+
+                    if (newJobsJArray.length()==0 && topRequested){
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        return;
+                    }
 
                     for (int i=0; i<newJobsJArray.length(); i++){
                         JSONObject newJobsJSONObject = newJobsJArray.getJSONObject(i);
@@ -147,6 +170,7 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
                         newJobs.add(newJobsJ);
                     }
                     addToList(newJobs);
+                    topRequested=false;
 
                     if(newJobs.size()==0){
                         Toast.makeText(getActivity(),getString(R.string.jobs_nohay), Toast.LENGTH_SHORT).show();
@@ -157,5 +181,32 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
             }
         }catch (JSONException e) { e.printStackTrace(); }
 
+    }
+
+    // ---------------------------------------------------- //
+    // -------------- SCROLL IMPLEMENTATION --------------- //
+    // ---------------------------------------------------- //
+
+    private RecyclerView.OnScrollListener setScrollListener(){
+        return new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (topRequested){return;}
+
+                if (dy < 0 ){
+
+                    visibleItemCount = mLayoutManager.getChildCount();
+                    totalItemCount = mLayoutManager.getItemCount();
+                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if ((visibleItemCount+pastVisiblesItems)==totalItemCount){
+                        topRequested=true;
+                        getJobs(true);
+                    }
+                }
+            }
+        };
     }
 }

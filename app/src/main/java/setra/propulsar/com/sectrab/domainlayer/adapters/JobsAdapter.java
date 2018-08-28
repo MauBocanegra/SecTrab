@@ -22,12 +22,19 @@ import setra.propulsar.com.sectrab.presentationlayer.activities.NewsDetalleActiv
 
 public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
 
+    private final int VIEW_TYPE_ITEM=1, VIEW_TYPE_LOADING=0;
+
     private ArrayList<Jobs> mDataset;
     Context mContext;
 
     public JobsAdapter(ArrayList<Jobs> myDataset, Context mContext){
         mDataset = myDataset;
         this.mContext = mContext;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return mDataset.get(position) instanceof Jobs ? VIEW_TYPE_ITEM : VIEW_TYPE_LOADING;
     }
 
     // ------------------------------------------------------------- //
