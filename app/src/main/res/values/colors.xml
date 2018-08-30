@@ -10,4 +10,5 @@
     <color name="textColorAccent">#21374d</color>
 
     <color name="buttonRed">#D9142c</color>
+    <color name="buttonGray">#47544E</color>
 </resources>

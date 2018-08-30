@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:clipToPadding="false"
         android:gravity="center_vertical"
         android:orientation="vertical"
@@ -179,7 +179,7 @@
                         app:cardCornerRadius="5dp"
                         app:cardElevation="4dp">
 
-                        <propulsar.pgb.presentationlayer.CustomViews.EditTextCampo
+                        <setra.propulsar.com.sectrab.presentationlayer.CustomViews.EditTextCampo
                             android:id="@+id/editText_mensaje"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

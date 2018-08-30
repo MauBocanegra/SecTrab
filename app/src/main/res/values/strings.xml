@@ -65,6 +65,8 @@
     <string name="ServicesLink">http://setraprodesvc.iog.digital/api/</string>
     <string name="sharedPrefName">SharedPrefSETRAPRODE</string>
 
+    <string name="geo_APIKEY">AIzaSyCFOFGzzZfrkqbVH5uFFHzRsRA-HqQFpLI</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

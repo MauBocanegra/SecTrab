@@ -538,6 +538,9 @@ public class WS {
     public static final int WS_getJobsList = 1700;
     public static final int WS_getJobsDetail = 500;
     public static final int WS_recoverPassword = 2500;
+    public static final int WS_getMessages = 1200;
+    public static final int WS_sendMessage = 1300;
+
 
 
     //copias de PGB//
@@ -551,10 +554,6 @@ public class WS {
     public static final int WS_getNotifs = 800;
     public static final int WS_getCases = 900;
     public static final int WS_getCaseDetail = 1500;
-
-
-    public static final int WS_getMessages = 1200;
-    public static final int WS_sendMessage = 1300;
     public static final int WS_createProposal = 1400;
 
     public static final int WS_getSurvey = 1800;
@@ -578,9 +577,12 @@ public class WS {
     public static final String WS_registerMailURL = "Registery/";
     public static final String WS_recoverPasswordURL = "RecoverPassword/";
     public static final String WS_getNewsListURL = "News/";
-    public static final String WS_getNewsDetailsURL = "News/{id}";
+    public static final String WS_getNewsDetailsURL = "News/{creatorId}";
     public static final String WS_getJobsURL = "Jobs/";
-    public static final String WS_getJobsDetailURL = "Jobs/{id}";
+    public static final String WS_getJobsDetailURL = "Jobs/{creatorId}";
+    public static final String WS_getMessagesURL = "Messages/";
+    public static final String WS_sendMessageURL = "Messages/";
+    public static final String WS_getOfficerInfoURL = "Titular/";
 
 
 
@@ -594,8 +596,7 @@ public class WS {
     public static final String WS_getCasesURL = "Complaint/GetCasesList";
 
 
-    public static final String WS_getMessagesURL = "Message/GetMessages";
-    public static final String WS_sendMessageURL = "Message/SendMessages";
+
     public static final String WS_createProposalURL = "Proposal/CreateProposal";
     public static final String WS_getCaseDetailURL = "Complaint/GetComplaintDetail";
 
@@ -607,7 +608,7 @@ public class WS {
     public static final String WS_getAboutURL = "Site/GetSiteConfiguration?Name=about";
     public static final String WS_updatePasswordURL = "User/ChangePassword";
 
-    public static final String WS_getOfficerInfoURL = "User/GetBasicProfileOfficial";
+
     public static final String WS_getBotTokenURL = "Site/GetSiteConfiguration?Name=directLine";
     public static final String WS_getCaseByFolioURL = "Complaint/GetComplaintDetailWithFolio";
 
