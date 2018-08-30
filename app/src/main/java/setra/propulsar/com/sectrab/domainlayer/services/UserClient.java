@@ -11,8 +11,8 @@ import retrofit2.http.Part;
 public interface UserClient {
 
     @Multipart
-    //@POST("http://testsvcyonayarit.iog.digital/api/Message/SendImageMessages")
-    @POST(WSConstant.WSLink+"Message/SendImageMessages")
+
+    @POST(WSConstant.WSLink+"Messages/")
     Call<ResponseBody> uploadPhoto(
             @Part("UserId") RequestBody UserId,
             @Part("DestinationId") RequestBody DestinationId,

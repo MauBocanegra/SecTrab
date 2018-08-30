@@ -1,6 +1,6 @@
 package setra.propulsar.com.sectrab.domainlayer.adapters;
 
-import android.content.Context;
+import android.app.Activity;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -27,11 +27,11 @@ public class GalleryAdapter extends BaseAdapter {
     private ChatFragment fragment;
 
     ArrayList<String> imagesPath;
-    Context mContext;
+    Activity mContext;
 
     public GalleryAdapter(ChatFragment a){
 
-        fragment=a;
+       fragment=a;
 
         AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
@@ -120,17 +120,17 @@ public class GalleryAdapter extends BaseAdapter {
         ImageView imageView;
         if (view == null) {
             // if it's not recycled, initialize some attributes
-            imageView = new ImageView(mContext);
-            int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 130, mContext.getResources().getDisplayMetrics());
+            imageView = new ImageView(fragment.getActivity());
+            int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 130,fragment.getActivity().getResources().getDisplayMetrics());
             imageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, px));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         } else {
             imageView = (ImageView) view;
         }
 
-        imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_image_ph));
+        imageView.setImageDrawable(ContextCompat.getDrawable(fragment.getActivity(), R.drawable.ic_image_ph));
         //imageView.setImageBitmap(BitmapFactory.decodeFile(imagesPath.get(i)));
-        Picasso.with(mContext).load(Uri.fromFile(new File(imagesPath.get(i)))).into(imageView);
+        Picasso.with(fragment.getActivity()).load(Uri.fromFile(new File(imagesPath.get(i)))).into(imageView);
         imageView.setTag(imagesPath.get(i));
         return imageView;
     }

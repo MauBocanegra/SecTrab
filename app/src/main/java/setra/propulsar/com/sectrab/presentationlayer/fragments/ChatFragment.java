@@ -210,6 +210,8 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
         }
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -226,7 +228,7 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
         respChat = new ArrayList<Msg>();
         mRecyclerView = (RecyclerView)view.findViewById(R.id.msgRecyclerView);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setReverseLayout(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new MsgAdapter(messages, ChatFragment.this);
@@ -292,7 +294,7 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
         Map<String, Object> params = new LinkedHashMap<>();
         WS.getOfficerInfo(params,this);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                 .addApi(Awareness.API)
                 .build();
         mGoogleApiClient.connect();
@@ -338,7 +340,7 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
     private void clickSend(View view){
 
         if(mapContainer.getVisibility()==View.VISIBLE){
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
             builder.setTitle("¿Deseas enviar la ubicación establecida por el marcador rojo");
             // Add the buttons
@@ -377,7 +379,7 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
         if(mensaje.isEmpty()){
             Snackbar snack=Snackbar.make(view, "No puedes mandar mensajes vacios", Snackbar.LENGTH_SHORT);
             View snackBarView = snack.getView();
-            snackBarView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+            snackBarView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
             snack.setAction("Action", null).show();
             snack.show();
             return;
@@ -394,17 +396,17 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("UserId",userID);
         params.put("DestinationId",1);
-        params.put("MessageTypeId",1);
+        params.put("MessageTypeId",3);
         params.put("Text",mensaje);
         WS.sendMessage(params,this);
     }
 
     private void onClickLocation(){
-        if (ContextCompat.checkSelfPermission(getContext(),
+        if (ContextCompat.checkSelfPermission(getActivity(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions((Activity) getContext(),
+            ActivityCompat.requestPermissions(getActivity(),
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }else{
@@ -428,11 +430,11 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
     }
 
     private void clickCamera(){
-        if (ContextCompat.checkSelfPermission(getContext(),
+        if (ContextCompat.checkSelfPermission(getActivity(),
                 android.Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions((Activity) getContext(),
+            ActivityCompat.requestPermissions(getActivity(),
                     new String[]{android.Manifest.permission.CAMERA},
                     MY_PERMISSIONS_REQUEST_CAMERA);
         }else{
@@ -493,7 +495,7 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
 
         //Create retrofit instance
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(WS.WS_URL+"Message/SendImageMessages/")
+                .baseUrl(WS.WS_URL+"Messages/")
                 .addConverterFactory(GsonConverterFactory.create());
 
         Retrofit retrofit = builder.build();
@@ -513,7 +515,7 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("ImageDebug","CORRECTO CALL = "+call.request().toString()+" response = "+response.toString());
+                Log.d("ImageDebug","CORRECT CALL = "+call.request().toString()+" response = "+response.toString());
                 //Toast.makeText(ChatActivity.this, "YES!", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 swipeRefreshLayout.setRefreshing(false);
@@ -638,18 +640,18 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
     }
 
     private void clickGallery(){
-        if (ContextCompat.checkSelfPermission(getContext(),
+        if (ContextCompat.checkSelfPermission(getActivity(),
                 android.Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions((Activity) getContext(),
+            ActivityCompat.requestPermissions(getActivity(),
                     new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
                     MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-        }else if(ContextCompat.checkSelfPermission(getContext(),
+        }else if(ContextCompat.checkSelfPermission(getActivity(),
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED){
 
-            ActivityCompat.requestPermissions((Activity) getContext(),
+            ActivityCompat.requestPermissions(getActivity(),
                     new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
 
@@ -674,20 +676,20 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
         Handler h3 = new Handler();
         h3.postDelayed(new Runnable(){
             public void run(){
-                fab.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_add_location));
+                fab.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_add_location));
                 buttonImg.setVisibility(View.GONE);
                 cardEditText.setVisibility(View.GONE);
-                ((ImageView)buttonLocation).setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_back));
+                ((ImageView)buttonLocation).setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_back));
                 //tituloAccion.setVisibility(View.VISIBLE);
             }
         }, 100);
     }
 
     private void hideMap(){
-        fab.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_send_material));
+        fab.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_send_material));
         buttonImg.setVisibility(View.VISIBLE);
         cardEditText.setVisibility(View.VISIBLE);
-        ((ImageView)buttonLocation).setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_place));
+        ((ImageView)buttonLocation).setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_place));
 
 
         Handler h3 = new Handler();

@@ -281,7 +281,7 @@ public class WS {
                         }
                     }
                     url = new URL(urlString + "/" + restURL);
-                    url = new URL(WS.WS_URL + "Message/SendImageMessages");
+                    url = new URL(WS.WS_URL + "Messages/");
                     Log.d("urlString", "FINALSTRING = " + url.toString());
                 }
                 StringBuilder postData = new StringBuilder();
@@ -589,17 +589,12 @@ public class WS {
     public static final String WS_getMenuURL = "User/GetHome";
     public static final String WS_getEventDetailsURL = "Event/GetEventDetails";
     public static final String WS_getUserProfileURL = "User/GetUser";
-
     public static final String WS_getVotedProposalsURL = "Proposal/GetVotedProposalsList2";
     public static final String WS_getPendingProposalsURL = "Proposal/GetPendingProposalsList";
     public static final String WS_getNotifsURL = "Notifications/GetNotifications";
     public static final String WS_getCasesURL = "Complaint/GetCasesList";
-
-
-
     public static final String WS_createProposalURL = "Proposal/CreateProposal";
     public static final String WS_getCaseDetailURL = "Complaint/GetComplaintDetail";
-
     public static final String WS_getSurveyURL = "Survey/GetSurveyDetails";
     public static final String WS_answerSurveyURL = "Survey/AnswerSurvey";
     public static final String WS_voteProposalURL = "Proposal/VoteProposal";
@@ -607,8 +602,6 @@ public class WS {
     public static final String WS_registerFacebookURL = "User/UserRegistrationWithFaceboook";
     public static final String WS_getAboutURL = "Site/GetSiteConfiguration?Name=about";
     public static final String WS_updatePasswordURL = "User/ChangePassword";
-
-
     public static final String WS_getBotTokenURL = "Site/GetSiteConfiguration?Name=directLine";
     public static final String WS_getCaseByFolioURL = "Complaint/GetComplaintDetailWithFolio";
 
