@@ -24,14 +24,14 @@ import setra.propulsar.com.sectrab.presentationlayer.fragments.ChatFragment;
 
 public class GalleryAdapter extends BaseAdapter {
 
-    private ChatFragment activity;
+    private ChatFragment fragment;
 
     ArrayList<String> imagesPath;
     Context mContext;
 
     public GalleryAdapter(ChatFragment a){
 
-        activity=a;
+        fragment=a;
 
         AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
             @Override

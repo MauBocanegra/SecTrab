@@ -354,7 +354,7 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
                     userID = sharedPreferences.getInt("userID",0);
                     Map<String, Object> params = new LinkedHashMap<>();
                     params.put("UserId",userID);
-                    params.put("DestinationId",3);
+                    params.put("DestinationId",1);
                     params.put("MessageTypeId",3);
                     params.put("Text",""+String.format("%.6f", lat)+","+ String.format("%.6f", lon));
                     WS.sendMessage(params,ChatFragment.this);
@@ -393,7 +393,7 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
         userID = sharedPreferences.getInt("userID",0);
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("UserId",userID);
-        params.put("DestinationId",3);
+        params.put("DestinationId",1);
         params.put("MessageTypeId",1);
         params.put("Text",mensaje);
         WS.sendMessage(params,this);
@@ -834,7 +834,7 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
                         }
 
                         newMsg.setId(newMsgJSONObject.getInt("CreatorId"));
-                        newMsg.setSenderId(newMsgJSONObject.getInt("CreatorName"));
+                        newMsg.setSenderName(newMsgJSONObject.getString("CreatorName"));
                         newMsg.setMsg(newMsgJSONObject.getString("Index"));
                         newMsg.setTimeStamp(newMsgJSONObject.getString("Created"));
                         newMsg.setUrl(newMsgJSONObject.getString("Message"));
