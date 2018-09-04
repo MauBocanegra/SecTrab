@@ -1,7 +1,6 @@
 package setra.propulsar.com.sectrab.presentationlayer.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,6 +43,7 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
     private boolean topRequested=false;
 
     View view;
+    View infoButton;
     View progressLoading;
 
     public static JobVacanciesFragment newInstance(){return new JobVacanciesFragment();}
@@ -74,14 +74,16 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
         progressLoading=view.findViewById(R.id.progressBarNewsFrag);
         progressLoading.setVisibility(View.VISIBLE);
 
+        infoButton=view.findViewById(R.id.itemjob_button_informacion);
+
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout.setOnRefreshListener(JobVacanciesFragment.this);
 
         mRecyclerView.addOnScrollListener(setScrollListener());
         Map<String, Object> params = new LinkedHashMap<>();
-        params.put("Skip",skip);
-        params.put("Take",take);
+        params.put("Skip",skipIni);
+        params.put("Take",takeIni);
         WS.getJobsList(params,this);
 
         return view;
@@ -128,6 +130,7 @@ public class JobVacanciesFragment extends Fragment  implements SwipeRefreshLayou
         skipIni=0; takeIni=3;
         getJobs(false);
     }
+
 
     // ---------------------------------------------------------- //
     // -------------- WEB SERVICES IMPLEMENTATION --------------- //

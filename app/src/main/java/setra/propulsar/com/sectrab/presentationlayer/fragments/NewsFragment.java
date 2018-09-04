@@ -1,6 +1,5 @@
 package setra.propulsar.com.sectrab.presentationlayer.fragments;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -17,7 +16,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -84,8 +82,8 @@ public class NewsFragment extends Fragment implements WS.OnWSRequested, SwipeRef
 
         mRecyclerView.addOnScrollListener(setScrollListener());
         Map<String, Object> params = new LinkedHashMap<>();
-        //params.put("Skip",skip);
-        //params.put("Take",take);
+        params.put("Skip",skipIni);
+        params.put("Take",takeIni);
         WS.getNewsList(params,this);
 
         return view;

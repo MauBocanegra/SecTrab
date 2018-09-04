@@ -60,10 +60,10 @@
     <string name="msgs_nohay">¿Tienes alguna solicitud, gestión, denuncia o sugerencia?\n¡Envíanos un mensaje!\nY a la brevedad alguien del staff te contestará personalmente </string>
     <string name="news_nohay">Sin noticias por el momento.</string>
     <string name="jobs_nohay">Sin ofertas de empleo por el momento.</string>
-    <string name="title_appinfo">SETRAPRODE APP</string>
+    <string name="title_appinfo">Fortalece Nayarit APP</string>
 
     <string name="ServicesLink">http://setraprodesvc.iog.digital/api/</string>
-    <string name="sharedPrefName">SharedPrefSETRAPRODE</string>
+    <string name="sharedPrefName">SharedPrefFortaleceNayarit</string>
 
     <string name="geo_APIKEY">AIzaSyCOxgEqyez3W-qhCyE5aMlbMFl5c86aOOI</string>
 

@@ -3,6 +3,7 @@ package setra.propulsar.com.sectrab.presentationlayer.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,13 +13,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AlertDialogLayout;
 import android.support.v7.widget.Toolbar;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 
 import setra.propulsar.com.sectrab.R;
 import setra.propulsar.com.sectrab.presentationlayer.fragments.AppInfoFragment;
@@ -64,7 +62,6 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
         newsFrag = new NewsFragment();
         chatFrag = new ChatFragment();
         appInfoFrag = new AppInfoFragment();
-
 
         //Fragment inicial
         fragmentManager.beginTransaction().replace(R.id.contenedorrr, newsFrag).commit();

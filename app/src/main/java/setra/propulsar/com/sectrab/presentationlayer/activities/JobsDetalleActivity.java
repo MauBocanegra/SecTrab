@@ -69,6 +69,7 @@ public class JobsDetalleActivity extends AppCompatActivity implements WS.OnWSReq
         textViewDescription = (TextView)findViewById(R.id.jobsdetalle_textView_description);
         textViewUbicacion = (TextView)findViewById(R.id.jobsdetalle_textView_ubicacion);
         textViewPhone = (TextView)findViewById(R.id.jobsdetalle_textView_phone);
+        textViewEmail = (TextView)findViewById(R.id.jobsdetalle_textView_email);
         imageViewLogo = (ImageView)findViewById(R.id.jobsdetalle_imageView_logo);
     }
 

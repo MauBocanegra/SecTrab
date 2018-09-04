@@ -18,11 +18,10 @@ import java.util.ArrayList;
 import setra.propulsar.com.sectrab.R;
 import setra.propulsar.com.sectrab.domainlayer.models.Jobs;
 import setra.propulsar.com.sectrab.presentationlayer.activities.JobsDetalleActivity;
-import setra.propulsar.com.sectrab.presentationlayer.activities.NewsDetalleActivity;
 
 public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
 
-    private final int VIEW_TYPE_ITEM=1, VIEW_TYPE_LOADING=0;
+    private final int VIEW_TYPE_ITEM=0, VIEW_TYPE_LOADING=1;
 
     private ArrayList<Jobs> mDataset;
     Context mContext;
@@ -80,6 +79,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         public ViewHolder(View v)
         {
             super (v);
+
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -88,6 +88,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
                     mContext.startActivity(intent);
                 }
             });
+
             fullcard = v.findViewById(R.id.itemjob_cardView_fullview);
             imageViewImagen = v.findViewById(R.id.itemjob_imageView_imagenempresa);
             textViewNombre = v.findViewById(R.id.itemjob_textView_nombreempresa);
@@ -96,6 +97,14 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             textViewDescripcion = v.findViewById(R.id.itemjob_textView_descripcion);
             textViewUbicacion = v.findViewById(R.id.itemjob_textView_ubicacion);
             buttonMasInfo = v.findViewById(R.id.itemjob_button_informacion);
+            buttonMasInfo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, JobsDetalleActivity.class);
+                    intent.putExtra("Id",mDataset.get(getLayoutPosition()).getIdEmpleo());
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 }
