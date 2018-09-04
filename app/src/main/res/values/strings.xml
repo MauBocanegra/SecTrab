@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SETRAPRODE</string>
+    <string name="app_name">Fortalece Nayarit</string>
 
     <string name="login_field_iniciar_titulo">Iniciar Sesión</string>
     <string name="login_field_correo_hint">Correo Electrónico</string>
@@ -65,7 +65,7 @@
     <string name="ServicesLink">http://setraprodesvc.iog.digital/api/</string>
     <string name="sharedPrefName">SharedPrefSETRAPRODE</string>
 
-    <string name="geo_APIKEY">AIzaSyCFOFGzzZfrkqbVH5uFFHzRsRA-HqQFpLI</string>
+    <string name="geo_APIKEY">AIzaSyCOxgEqyez3W-qhCyE5aMlbMFl5c86aOOI</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
