@@ -293,6 +293,10 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
         mRecyclerView.addOnScrollListener(setScrollListener());
         Map<String, Object> params = new LinkedHashMap<>();
         WS.getOfficerInfo(params,this);
+        params.put("UserId",userID);
+        params.put("Skip",skip);
+        params.put("Take",take);
+        WS.getMessages(params,this);
 
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                 .addApi(Awareness.API)
@@ -322,6 +326,7 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
                 }
             }
         };
+
         h.postDelayed(getMessagesRepeatedly, 30000);
     }
 
@@ -396,9 +401,12 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("UserId",userID);
         params.put("DestinationId",1);
-        params.put("MessageTypeId",3);
+        params.put("MessageTypeId",2);
         params.put("Text",mensaje);
         WS.sendMessage(params,this);
+
+        //Envio de imagenes
+
     }
 
     private void onClickLocation(){
@@ -837,9 +845,10 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
 
                         newMsg.setId(newMsgJSONObject.getInt("CreatorId"));
                         newMsg.setSenderName(newMsgJSONObject.getString("CreatorName"));
-                        newMsg.setMsg(newMsgJSONObject.getString("Index"));
+                        newMsg.setMsg(newMsgJSONObject.getString("Message"));
                         newMsg.setTimeStamp(newMsgJSONObject.getString("Created"));
                         newMsg.setUrl(newMsgJSONObject.getString("Message"));
+                        newMsg.setIndex(newMsgJSONObject.getInt("Index"));
                         newMsg.setType(newMsgJSONObject.getInt("TypeId"));
 
                         newMsgs.add(newMsg);
@@ -850,7 +859,6 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
                     }
 
                     addToList(newMsgs);
-                    //respBot = messages;
 
                     topRequested=false;
                     break;

@@ -7,7 +7,7 @@ public class Msg {
     public String senderName;
     public String timeStamp;
     public String url;
-    public boolean isBot;
+    public int index;
     public String avatarURL;
     public int type;
 
@@ -59,12 +59,12 @@ public class Msg {
         this.url = url;
     }
 
-    public boolean isBot() {
-        return isBot;
+    public int getIndex() {
+        return index;
     }
 
-    public void setBot(boolean bot) {
-        isBot = bot;
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public String getAvatarURL() {
