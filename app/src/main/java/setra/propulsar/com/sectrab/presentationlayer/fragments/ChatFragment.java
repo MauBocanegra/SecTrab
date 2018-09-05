@@ -497,50 +497,6 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
         return RequestBody.create(MultipartBody.FORM, descriptionString);
     }
 
-    private void uploadFileRetrofit(String fileLocation){
-
-        File file = new File(fileLocation);
-
-        //Create retrofit instance
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(WS.WS_URL+"Messages/")
-                .addConverterFactory(GsonConverterFactory.create());
-
-        Retrofit retrofit = builder.build();
-
-        //Get client & call object for the request
-        UserClient client = retrofit.create(UserClient.class);
-
-        //finally execute the request
-        Log.d("asdfg","userID="+userID+"fileName="+file.getName());
-        Call<ResponseBody> call = client.uploadPhoto(
-                createPartFromString(""+userID),
-                createPartFromString("3"),
-                createPartFromString("4"),
-                prepareFilePart("fileContents",fileLocation)
-        );
-
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("ImageDebug","CORRECT CALL = "+call.request().toString()+" response = "+response.toString());
-                //Toast.makeText(ChatActivity.this, "YES!", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-                swipeRefreshLayout.setRefreshing(false);
-
-                hideGallery();
-                getMessages(false);
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("asdfg","ERROR "+call.toString());
-                t.printStackTrace();
-                //Toast.makeText(ChatActivity.this, "NO", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     private void showGallery(){
 
         View view = getActivity().getCurrentFocus();
@@ -618,6 +574,49 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
         }
     }
 
+    private void uploadFileRetrofit(String fileLocation){
+
+        File file = new File(fileLocation);
+
+        //Create retrofit instance
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(WS.WS_URL+"Messages/")
+                .addConverterFactory(GsonConverterFactory.create());
+
+        Retrofit retrofit = builder.build();
+
+        //Get client & call object for the request
+        UserClient client = retrofit.create(UserClient.class);
+
+        //finally execute the request
+        Log.d("asdfg","userID="+userID+"fileName="+file.getName());
+        Call<ResponseBody> call = client.uploadPhoto(
+                createPartFromString(""+userID),
+                createPartFromString("3"),
+                createPartFromString("4"),
+                prepareFilePart("fileContents",fileLocation)
+        );
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d("ImageDebug","CORRECT CALL = "+call.request().toString()+" response = "+response.toString());
+                //Toast.makeText(ChatActivity.this, "YES!", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                swipeRefreshLayout.setRefreshing(false);
+
+                hideGallery();
+                getMessages(false);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("asdfg","ERROR "+call.toString());
+                t.printStackTrace();
+                //Toast.makeText(ChatActivity.this, "NO", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 
     @NonNull
