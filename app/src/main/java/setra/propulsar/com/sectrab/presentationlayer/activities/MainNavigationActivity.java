@@ -43,6 +43,7 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_app_bar);
         setSupportActionBar(toolbar);
 
+
         SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPrefName), 0);
         int userID = sharedPreferences.getInt("userID",0);
 
@@ -52,8 +53,16 @@ public class MainNavigationActivity extends AppCompatActivity implements Navigat
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_drawer_container);
-        navigationView.setNavigationItemSelectedListener(this);
+       if ((userID == 0)){
+           NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_drawer_container);
+           navigationView.inflateMenu(R.menu.menu_navigation_activity_nouser);
+           navigationView.setNavigationItemSelectedListener(this);
+
+       }else {
+           NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_drawer_container);
+           navigationView.inflateMenu(R.menu.menu_navigation_activity);
+           navigationView.setNavigationItemSelectedListener(this);
+       }
 
         fragmentManager = getSupportFragmentManager();
 
