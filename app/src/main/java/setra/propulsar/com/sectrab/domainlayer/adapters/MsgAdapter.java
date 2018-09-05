@@ -91,6 +91,7 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder>{
                 });
                 break;
             }
+            //Imagenes
             case 4:{
                 holder.msg.setVisibility(View.GONE);
                 holder.fecha.setVisibility(View.GONE);
@@ -145,7 +146,7 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder>{
                 }
                 break;
             }
-
+            //Texto
             case 2:{
                 holder.msg.setVisibility(View.VISIBLE);
                 holder.fecha.setVisibility(View.VISIBLE);
