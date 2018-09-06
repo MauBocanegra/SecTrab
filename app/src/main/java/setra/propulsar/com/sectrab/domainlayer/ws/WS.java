@@ -281,7 +281,7 @@ public class WS {
                         }
                     }
                     url = new URL(urlString + "/" + restURL);
-                    url = new URL(WS.WS_URL + "Messages/");
+                    url = new URL(WS.WS_URL + "ImageMessages/");
                     Log.d("urlString", "FINALSTRING = " + url.toString());
                 }
                 StringBuilder postData = new StringBuilder();

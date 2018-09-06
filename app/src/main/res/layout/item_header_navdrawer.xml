@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/imageView_escudo_app"
-        android:layout_width="37dp"
-        android:layout_height="42dp"
+        android:layout_width="39dp"
+        android:layout_height="44dp"
         android:layout_marginBottom="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
@@ -16,7 +16,7 @@
         app:layout_constraintDimensionRatio="h,1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_setra_menu_logo" />
+        app:srcCompat="@drawable/ic_menu_logo_fn" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -25,7 +25,7 @@
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/textColorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintEnd_toEndOf="parent"

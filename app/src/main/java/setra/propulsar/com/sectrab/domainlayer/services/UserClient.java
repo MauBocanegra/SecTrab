@@ -12,7 +12,7 @@ public interface UserClient {
 
     @Multipart
 
-    @POST(WSConstant.WSLink+"Messages/")
+    @POST(WSConstant.WSLink+"ImageMessages/")
     Call<ResponseBody> uploadPhoto(
             @Part("UserId") RequestBody UserId,
             @Part("DestinationId") RequestBody DestinationId,

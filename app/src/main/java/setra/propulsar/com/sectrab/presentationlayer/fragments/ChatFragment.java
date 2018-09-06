@@ -580,7 +580,7 @@ public class ChatFragment extends Fragment implements OnMapReadyCallback, WS.OnW
 
         //Create retrofit instance
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(WS.WS_URL+"Messages/")
+                .baseUrl(WS.WS_URL+"ImageMessages/")
                 .addConverterFactory(GsonConverterFactory.create());
 
         Retrofit retrofit = builder.build();
